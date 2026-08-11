@@ -300,8 +300,8 @@
     }
 
     /* ============================================================
-       SHOP PAGE - ROUND CATEGORY FILTER + PRODUCT GRID
-       MOBILE OPTIMIZED - 100% WIDTH PRODUCTS
+       SHOP PAGE - ROUND CATEGORY FILTER WITH PHOTOS
+       TEXT OUTSIDE THE ROUND (below)
     ============================================================ */
     .shop-page {
       min-height: 80vh;
@@ -320,16 +320,16 @@
       font-size: 1.8rem;
     }
 
-    /* Round Category Filter - Mobile Optimized */
+    /* Round Category Filter - Text below the round */
     .shop-category-filter {
       display: flex;
-      gap: 0.7rem;
+      gap: 0.8rem;
       flex-wrap: nowrap;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       justify-content: flex-start;
       margin-bottom: 1.8rem;
-      padding: 0.3rem 0.3rem 0.8rem;
+      padding: 0.3rem 0.3rem 0.5rem;
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
@@ -339,32 +339,37 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.2rem;
+      gap: 0.3rem;
       width: 68px;
-      height: 68px;
       min-width: 68px;
-      border-radius: 50%;
       padding: 0;
-      background: #fff;
-      border: 2.5px solid rgba(0, 0, 0, 0.04);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-      transition: all 0.3s ease;
+      background: transparent;
+      border: none;
       cursor: pointer;
       font-family: 'Inter', sans-serif;
       font-size: 0.6rem;
       font-weight: 500;
       color: #4a3f3a;
       text-align: center;
-      overflow: hidden;
-      position: relative;
       flex-shrink: 0;
     }
-    .shop-category-filter .filter-btn:hover {
+    .shop-category-filter .filter-btn .round-wrap {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      border: 2.5px solid rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+    .shop-category-filter .filter-btn .round-wrap:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
       border-color: rgba(184, 154, 123, 0.3);
     }
-    .shop-category-filter .filter-btn.active {
+    .shop-category-filter .filter-btn.active .round-wrap {
       border-color: #b89a7b;
       box-shadow: 0 6px 20px rgba(184, 154, 123, 0.15);
     }
@@ -376,26 +381,6 @@
       position: absolute;
       top: 0;
       left: 0;
-    }
-    .shop-category-filter .filter-btn .cat-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 0.2rem 0.1rem;
-      background: linear-gradient(transparent, rgba(0,0,0,0.5));
-      border-radius: 0 0 50% 50%;
-      text-align: center;
-      z-index: 1;
-    }
-    .shop-category-filter .filter-btn .cat-overlay span {
-      color: #fff;
-      font-size: 0.45rem;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-      display: block;
-      line-height: 1.1;
     }
     .shop-category-filter .filter-btn .cat-icon {
       width: 100%;
@@ -409,6 +394,19 @@
     .shop-category-filter .filter-btn .cat-icon i {
       font-size: 1.3rem;
       color: #b89a7b;
+    }
+    .shop-category-filter .filter-btn .cat-label {
+      font-size: 0.55rem;
+      font-weight: 500;
+      color: #4a3f3a;
+      letter-spacing: 0.3px;
+      margin-top: 0.2rem;
+      line-height: 1.2;
+      text-align: center;
+    }
+    .shop-category-filter .filter-btn.active .cat-label {
+      color: #1e1b1a;
+      font-weight: 600;
     }
 
     /* Shop Products Grid - Full Width on Mobile */
@@ -1012,6 +1010,9 @@
       .hero-content h1 { font-size: 3.5rem; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
       .shop-page .product-grid { grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+      .shop-category-filter .filter-btn .round-wrap { width: 60px; height: 60px; }
+      .shop-category-filter .filter-btn { min-width: 60px; }
+      .shop-category-filter .filter-btn .cat-label { font-size: 0.5rem; }
     }
 
     @media (max-width: 768px) {
@@ -1044,7 +1045,6 @@
       .hero-sub { font-size: 1rem; margin: 1rem 0 1.5rem; }
       .hero-buttons .btn { padding: 0.7rem 1.8rem; font-size: 0.9rem; }
 
-      /* SHOP PAGE - MOBILE FULL WIDTH */
       .shop-page {
         margin: 0 0.6rem 1.2rem;
         padding: 1.5rem 0;
@@ -1055,19 +1055,14 @@
       
       .shop-category-filter {
         gap: 0.6rem;
-        padding: 0.2rem 0.2rem 0.6rem;
+        padding: 0.2rem 0.2rem 0.4rem;
         margin-bottom: 1.5rem;
       }
-      .shop-category-filter .filter-btn {
-        width: 60px;
-        height: 60px;
-        min-width: 60px;
-        border-width: 2px;
-      }
-      .shop-category-filter .filter-btn .cat-overlay span { font-size: 0.4rem; }
+      .shop-category-filter .filter-btn .round-wrap { width: 56px; height: 56px; }
+      .shop-category-filter .filter-btn { min-width: 56px; }
+      .shop-category-filter .filter-btn .cat-label { font-size: 0.45rem; }
       .shop-category-filter .filter-btn .cat-icon i { font-size: 1.1rem; }
 
-      /* 2 column grid - full width */
       .shop-page .product-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.8rem;
@@ -1171,7 +1166,6 @@
       .hero-sub { font-size: 0.85rem; margin: 0.8rem 0 1.2rem; }
       .hero-buttons .btn { padding: 0.5rem 1.2rem; font-size: 0.75rem; }
 
-      /* SHOP PAGE - MOBILE OPTIMIZED */
       .shop-page {
         margin: 0 0.4rem 1rem;
         padding: 1rem 0;
@@ -1182,19 +1176,14 @@
       
       .shop-category-filter {
         gap: 0.5rem;
-        padding: 0.15rem 0.15rem 0.5rem;
+        padding: 0.15rem 0.15rem 0.4rem;
         margin-bottom: 1.2rem;
       }
-      .shop-category-filter .filter-btn {
-        width: 52px;
-        height: 52px;
-        min-width: 52px;
-        border-width: 2px;
-      }
-      .shop-category-filter .filter-btn .cat-overlay span { font-size: 0.35rem; }
+      .shop-category-filter .filter-btn .round-wrap { width: 50px; height: 50px; border-width: 2px; }
+      .shop-category-filter .filter-btn { min-width: 50px; }
+      .shop-category-filter .filter-btn .cat-label { font-size: 0.4rem; }
       .shop-category-filter .filter-btn .cat-icon i { font-size: 0.9rem; }
 
-      /* 2 column grid - full width */
       .shop-page .product-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.6rem;
@@ -1248,12 +1237,9 @@
     }
 
     @media (max-width: 380px) {
-      .shop-category-filter .filter-btn {
-        width: 46px;
-        height: 46px;
-        min-width: 46px;
-      }
-      .shop-category-filter .filter-btn .cat-overlay span { font-size: 0.3rem; }
+      .shop-category-filter .filter-btn .round-wrap { width: 44px; height: 44px; }
+      .shop-category-filter .filter-btn { min-width: 44px; }
+      .shop-category-filter .filter-btn .cat-label { font-size: 0.35rem; }
       .shop-category-filter .filter-btn .cat-icon i { font-size: 0.8rem; }
       
       .shop-page .product-grid { gap: 0.4rem; }
@@ -1329,43 +1315,61 @@
       <div class="container">
         <h2 class="section-title">Shop All Jewellery</h2>
         
-        <!-- Category Filter -->
+        <!-- Category Filter - Round photos with text below -->
         <div class="shop-category-filter" id="shopCategoryFilter">
           <button class="filter-btn active" data-filter="all">
-            <div class="cat-icon"><i class="fas fa-gem"></i></div>
-            <div class="cat-overlay"><span>All</span></div>
+            <div class="round-wrap">
+              <div class="cat-icon"><i class="fas fa-gem"></i></div>
+            </div>
+            <span class="cat-label">All</span>
           </button>
           <button class="filter-btn" data-filter="Rings">
-            <img class="cat-img" src="https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=100&h=100&fit=crop&crop=center" alt="Rings" loading="lazy" />
-            <div class="cat-overlay"><span>Rings</span></div>
+            <div class="round-wrap">
+              <img class="cat-img" src="https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=100&h=100&fit=crop&crop=center" alt="Rings" loading="lazy" />
+            </div>
+            <span class="cat-label">Rings</span>
           </button>
           <button class="filter-btn" data-filter="Necklaces">
-            <img class="cat-img" src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=100&h=100&fit=crop&crop=center" alt="Necklaces" loading="lazy" />
-            <div class="cat-overlay"><span>Necklaces</span></div>
+            <div class="round-wrap">
+              <img class="cat-img" src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=100&h=100&fit=crop&crop=center" alt="Necklaces" loading="lazy" />
+            </div>
+            <span class="cat-label">Necklaces</span>
           </button>
           <button class="filter-btn" data-filter="Earrings">
-            <img class="cat-img" src="https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=100&h=100&fit=crop&crop=center" alt="Earrings" loading="lazy" />
-            <div class="cat-overlay"><span>Earrings</span></div>
+            <div class="round-wrap">
+              <img class="cat-img" src="https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=100&h=100&fit=crop&crop=center" alt="Earrings" loading="lazy" />
+            </div>
+            <span class="cat-label">Earrings</span>
           </button>
           <button class="filter-btn" data-filter="Bracelets">
-            <img class="cat-img" src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=100&h=100&fit=crop&crop=center" alt="Bracelets" loading="lazy" />
-            <div class="cat-overlay"><span>Bracelets</span></div>
+            <div class="round-wrap">
+              <img class="cat-img" src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=100&h=100&fit=crop&crop=center" alt="Bracelets" loading="lazy" />
+            </div>
+            <span class="cat-label">Bracelets</span>
           </button>
           <button class="filter-btn" data-filter="Bangles">
-            <img class="cat-img" src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=100&h=100&fit=crop&crop=center" alt="Bangles" loading="lazy" />
-            <div class="cat-overlay"><span>Bangles</span></div>
+            <div class="round-wrap">
+              <img class="cat-img" src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=100&h=100&fit=crop&crop=center" alt="Bangles" loading="lazy" />
+            </div>
+            <span class="cat-label">Bangles</span>
           </button>
           <button class="filter-btn" data-filter="Anklets">
-            <img class="cat-img" src="https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=100&h=100&fit=crop&crop=center" alt="Anklets" loading="lazy" />
-            <div class="cat-overlay"><span>Anklets</span></div>
+            <div class="round-wrap">
+              <img class="cat-img" src="https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=100&h=100&fit=crop&crop=center" alt="Anklets" loading="lazy" />
+            </div>
+            <span class="cat-label">Anklets</span>
           </button>
           <button class="filter-btn" data-filter="Nose pins">
-            <img class="cat-img" src="https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=100&h=100&fit=crop&crop=center" alt="Nose pins" loading="lazy" />
-            <div class="cat-overlay"><span>Nose pins</span></div>
+            <div class="round-wrap">
+              <img class="cat-img" src="https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=100&h=100&fit=crop&crop=center" alt="Nose pins" loading="lazy" />
+            </div>
+            <span class="cat-label">Nose pins</span>
           </button>
           <button class="filter-btn" data-filter="Watches">
-            <img class="cat-img" src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=100&h=100&fit=crop&crop=center" alt="Watches" loading="lazy" />
-            <div class="cat-overlay"><span>Watches</span></div>
+            <div class="round-wrap">
+              <img class="cat-img" src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=100&h=100&fit=crop&crop=center" alt="Watches" loading="lazy" />
+            </div>
+            <span class="cat-label">Watches</span>
           </button>
         </div>
 
