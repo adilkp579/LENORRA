@@ -93,6 +93,7 @@
       font-weight: 500;
       letter-spacing: 0.2px;
       font-size: 0.9rem;
+      cursor: pointer;
     }
     .nav-primary a:hover {
       color: #1e1b1a;
@@ -299,7 +300,174 @@
     }
 
     /* ============================================================
-       SHOP BY CATEGORY - NAVBAR + PRODUCT ROW
+       SHOP PAGE - CATEGORY FILTER + PRODUCT GRID
+    ============================================================ */
+    .shop-page {
+      min-height: 80vh;
+      padding: 3rem 0;
+      background: #f8f4f0;
+      border-radius: 30px;
+      margin: 0 1.5rem 2rem;
+    }
+    .shop-page .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .shop-page .section-title {
+      margin-bottom: 2rem;
+    }
+
+    /* Shop Category Filter - Horizontal scroll */
+    .shop-category-filter {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+      padding: 0.5rem;
+    }
+    .shop-category-filter .filter-btn {
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: #4a3f3a;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
+      font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+    }
+    .shop-category-filter .filter-btn:hover {
+      background: rgba(255, 255, 255, 0.9);
+      color: #1e1b1a;
+    }
+    .shop-category-filter .filter-btn.active {
+      background: #1e1b1a;
+      color: #f8f4f0;
+      border-color: #1e1b1a;
+    }
+    .shop-category-filter .filter-btn i {
+      margin-right: 0.4rem;
+    }
+
+    /* Shop Products Grid */
+    .shop-page .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .shop-page .product-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: 0.25s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+    .shop-page .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
+    }
+    .shop-page .product-image {
+      height: 280px;
+      background: #ede8e3;
+      position: relative;
+      overflow: hidden;
+    }
+    .shop-page .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .shop-page .product-actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .shop-page .product-actions button {
+      background: #fff;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: 0.2s;
+    }
+    .shop-page .product-actions button:hover {
+      background: #b89a7b;
+      color: #fff;
+    }
+    .shop-page .product-info {
+      padding: 1rem 1rem 1.2rem;
+    }
+    .shop-page .product-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .shop-page .product-category {
+      font-size: 0.8rem;
+      color: #7a6e68;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .shop-page .product-price {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      margin-top: 0.3rem;
+      flex-wrap: wrap;
+    }
+    .shop-page .price-current { font-weight: 700; font-size: 1.1rem; }
+    .shop-page .price-original { text-decoration: line-through; color: #9a8a80; font-size: 0.9rem; }
+    .shop-page .discount {
+      background: #e8d9cf;
+      padding: 0.1rem 0.6rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #7a4f3a;
+    }
+    .shop-page .product-rating { color: #b89a7b; font-size: 0.8rem; margin: 0.2rem 0; }
+    .shop-page .add-to-cart-btn {
+      width: 100%;
+      margin-top: 0.8rem;
+      padding: 0.5rem;
+      border: 1px solid #1e1b1a;
+      background: transparent;
+      font-weight: 600;
+      border-radius: 40px;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .shop-page .add-to-cart-btn:hover {
+      background: #1e1b1a;
+      color: #f8f4f0;
+    }
+    .shop-page .back-link {
+      display: inline-block;
+      margin-top: 2.5rem;
+      font-weight: 500;
+      color: #7a6e68;
+      transition: 0.2s;
+    }
+    .shop-page .back-link:hover {
+      color: #1e1b1a;
+    }
+    .shop-page .back-link i {
+      margin-right: 0.5rem;
+    }
+
+    /* ============================================================
+       SHOP BY CATEGORY - NAVBAR + PRODUCT ROW (Homepage)
     ============================================================ */
     .categories {
       padding: 2rem 0 3rem;
@@ -479,7 +647,7 @@
       color: #f8f4f0;
     }
 
-    /* ===== BEST SELLERS & NEW ARRIVALS ===== */
+    /* ===== BEST SELLERS & NEW ARRIVALS (Homepage) ===== */
     .products-section { padding: 4rem 0; }
     .product-grid {
       display: grid;
@@ -768,6 +936,7 @@
 
     @media (max-width: 1024px) {
       .product-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+      .shop-page .product-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
       .ig-grid { grid-template-columns: repeat(3, 1fr); }
       .review-grid { grid-template-columns: repeat(2, 1fr); }
       .hero-content h1 { font-size: 3.5rem; }
@@ -804,7 +973,33 @@
       .hero-sub { font-size: 1rem; margin: 1rem 0 1.5rem; }
       .hero-buttons .btn { padding: 0.7rem 1.8rem; font-size: 0.9rem; }
 
-      /* Category Nav - Horizontal scroll on mobile */
+      .shop-page {
+        margin: 0 0.8rem 1.5rem;
+        padding: 2rem 0;
+        border-radius: 20px;
+      }
+      .shop-page .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      .shop-page .product-image { height: 200px; }
+      .shop-category-filter {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+        padding: 0.5rem 0.5rem 1rem;
+        gap: 0.5rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .shop-category-filter::-webkit-scrollbar { display: none; }
+      .shop-category-filter .filter-btn {
+        flex: 0 0 auto;
+        font-size: 0.8rem;
+        padding: 0.4rem 1rem;
+      }
+
       .category-nav {
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -829,7 +1024,6 @@
       }
       .category-nav .cat-item i { font-size: 0.8rem; }
 
-      /* Category products row - horizontal scroll */
       .category-products-row .product-card {
         width: 200px;
       }
@@ -837,7 +1031,6 @@
         height: 170px;
       }
 
-      /* Products - grid 2 columns on mobile */
       .product-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -902,6 +1095,22 @@
       .hero-sub { font-size: 0.9rem; }
       .hero-buttons .btn { padding: 0.6rem 1.4rem; font-size: 0.8rem; }
 
+      .shop-page {
+        margin: 0 0.5rem 1rem;
+        padding: 1.5rem 0;
+        border-radius: 16px;
+      }
+      .shop-page .product-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.7rem;
+      }
+      .shop-page .product-image { height: 160px; }
+      .shop-page .product-info { padding: 0.6rem; }
+      .shop-page .product-name { font-size: 0.85rem; }
+      .shop-page .price-current { font-size: 0.95rem; }
+      .shop-page .add-to-cart-btn { font-size: 0.75rem; padding: 0.4rem; }
+      .shop-category-filter .filter-btn { font-size: 0.7rem; padding: 0.3rem 0.7rem; }
+
       .category-nav { padding: 0.4rem 0.6rem; gap: 0.3rem; }
       .category-nav .cat-item { padding: 0.3rem 0.8rem; font-size: 0.75rem; }
 
@@ -960,6 +1169,10 @@
       .hero-content h1 { font-size: 1.6rem; }
       .hero { margin: 0 0.5rem 1rem; border-radius: 14px; }
 
+      .shop-page .product-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+      .shop-page .product-image { height: 140px; }
+      .shop-category-filter .filter-btn { font-size: 0.65rem; padding: 0.25rem 0.6rem; }
+
       .category-nav .cat-item { padding: 0.25rem 0.6rem; font-size: 0.7rem; }
       .category-products-row .product-card { width: 150px; }
       .category-products-row .product-card .product-image { height: 130px; }
@@ -994,7 +1207,7 @@
       <nav class="nav-primary" aria-label="Main navigation">
         <ul>
           <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="shop.html">Shop</a></li>
+          <li><a href="#" onclick="showShopPage(event)">Shop</a></li>
           <li><a href="#new-arrivals">New Arrivals</a></li>
           <li><a href="#best-sellers">Best Sellers</a></li>
           <li><a href="#collections">Collections</a></li>
@@ -1013,7 +1226,7 @@
       <div class="mobile-nav-header"><span class="logo">LENORRA</span><button class="close-nav" id="closeNav"><i class="fas fa-times"></i></button></div>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
+        <li><a href="#" onclick="showShopPage(event)">Shop</a></li>
         <li><a href="#new-arrivals">New Arrivals</a></li>
         <li><a href="#best-sellers">Best Sellers</a></li>
         <li><a href="#collections">Collections</a></li>
@@ -1025,20 +1238,49 @@
   </header>
 
   <main>
-    <!-- HERO - FULL BACKGROUND IMAGE (NO 3D, NO PHOTO) -->
-    <section class="hero" aria-label="Featured collection">
+    <!-- HERO -->
+    <section class="hero" id="homeHero" aria-label="Featured collection">
       <div class="hero-content">
         <h1>Jewellery That Lasts Beyond the Moment</h1>
         <p class="hero-sub">Discover elegant anti‑tarnish jewellery designed for everyday luxury.</p>
         <div class="hero-buttons">
-          <a href="shop.html" class="btn primary">Shop Collection</a>
+          <a href="#" onclick="showShopPage(event)" class="btn primary">Shop Collection</a>
           <a href="#new-arrivals" class="btn secondary">Explore New Arrivals</a>
         </div>
       </div>
     </section>
 
+    <!-- SHOP PAGE (All Products with Category Filter) -->
+    <section class="shop-page" id="shopPage" style="display:none;">
+      <div class="container">
+        <h2 class="section-title">Shop All Jewellery</h2>
+        
+        <!-- Category Filter -->
+        <div class="shop-category-filter" id="shopCategoryFilter">
+          <button class="filter-btn active" data-filter="all"><i class="fas fa-gem"></i> All</button>
+          <button class="filter-btn" data-filter="Rings"><i class="fas fa-gem"></i> Rings</button>
+          <button class="filter-btn" data-filter="Necklaces"><i class="fas fa-gem"></i> Necklaces</button>
+          <button class="filter-btn" data-filter="Earrings"><i class="fas fa-gem"></i> Earrings</button>
+          <button class="filter-btn" data-filter="Bracelets"><i class="fas fa-gem"></i> Bracelets</button>
+          <button class="filter-btn" data-filter="Bangles"><i class="fas fa-gem"></i> Bangles</button>
+          <button class="filter-btn" data-filter="Anklets"><i class="fas fa-gem"></i> Anklets</button>
+          <button class="filter-btn" data-filter="Nose pins"><i class="fas fa-gem"></i> Nose pins</button>
+          <button class="filter-btn" data-filter="Watches"><i class="fas fa-gem"></i> Watches</button>
+        </div>
+
+        <div class="product-grid" id="shopProductsGrid">
+          <!-- Products rendered by JavaScript -->
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+          <a href="index.html" class="back-link" onclick="hideShopPage(event)">
+            <i class="fas fa-arrow-left"></i> Back to Home
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- SHOP BY CATEGORY - NAVBAR + PRODUCT ROW -->
-    <section class="categories" aria-label="Shop by category">
+    <section class="categories" id="categoriesSection" aria-label="Shop by category">
       <div class="container">
         <h2 class="section-title">Shop by Category</h2>
         <div class="category-nav" id="categoryNav">
@@ -1049,11 +1291,8 @@
           <button class="cat-item" data-category="Chains"><i class="fas fa-gem"></i> Chains</button>
         </div>
         
-        <!-- Category Products Row -->
         <div class="category-products-wrapper" id="categoryProductsWrapper">
-          <div class="category-products-row" id="categoryProductsRow">
-            <!-- Products will be rendered here by JavaScript -->
-          </div>
+          <div class="category-products-row" id="categoryProductsRow"></div>
         </div>
       </div>
     </section>
@@ -1092,7 +1331,7 @@
     <section class="promo-banner" aria-label="Promotional banner">
       <div class="container">
         <p>Your Everyday Jewellery, Elevated.</p>
-        <a href="shop.html" class="btn primary">Shop Now</a>
+        <a href="#" onclick="showShopPage(event)" class="btn primary">Shop Now</a>
       </div>
     </section>
 
@@ -1149,7 +1388,7 @@
           <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
         </div>
       </div>
-      <div class="footer-links"><h4>Shop</h4><ul><li><a href="shop.html">All Jewellery</a></li><li><a href="#">Earrings</a></li><li><a href="#">Necklaces</a></li><li><a href="#">Rings</a></li></ul></div>
+      <div class="footer-links"><h4>Shop</h4><ul><li><a href="#" onclick="showShopPage(event)">All Jewellery</a></li><li><a href="#">Earrings</a></li><li><a href="#">Necklaces</a></li><li><a href="#">Rings</a></li></ul></div>
       <div class="footer-links"><h4>Customer Care</h4><ul><li><a href="#">Shipping & Delivery</a></li><li><a href="#">Returns & Refunds</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms & Conditions</a></li></ul></div>
       <div class="footer-links"><h4>About</h4><ul><li><a href="about.html">About LENORRA</a></li><li><a href="contact.html">Contact</a></li></ul></div>
     </div>
@@ -1161,7 +1400,7 @@
 
   <!-- ========== JAVASCRIPT ========== -->
   <script>
-    // ----- 16 PRODUCTS (4 per category) -----
+    // ----- 28 PRODUCTS (4 per category for 7 categories) -----
     const allProducts = [
       // Necklaces (4)
       { id: 1, name: "Celeste Pearl Necklace", category: "Necklaces", price: 1299, originalPrice: 1799, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.8, bestSeller: true, newArrival: false },
@@ -1173,19 +1412,73 @@
       { id: 6, name: "Diamond Ring", category: "Rings", price: 899, originalPrice: null, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.8, bestSeller: false, newArrival: true },
       { id: 7, name: "Gold Plated Ring", category: "Rings", price: 499, originalPrice: 699, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: true, newArrival: false },
       { id: 8, name: "Pearl Ring", category: "Rings", price: 799, originalPrice: 999, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.6, bestSeller: false, newArrival: false },
+      // Earrings (4)
+      { id: 9, name: "Golden Drop Earrings", category: "Earrings", price: 899, originalPrice: 1199, image: "https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center", rating: 4.7, bestSeller: true, newArrival: false },
+      { id: 10, name: "Pearl Stud Earrings", category: "Earrings", price: 599, originalPrice: null, image: "https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: true },
+      { id: 11, name: "Hoop Earrings", category: "Earrings", price: 749, originalPrice: 999, image: "https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center", rating: 4.6, bestSeller: false, newArrival: false },
+      { id: 12, name: "Chandelier Earrings", category: "Earrings", price: 1299, originalPrice: 1699, image: "https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center", rating: 4.8, bestSeller: true, newArrival: false },
       // Bracelets (4)
-      { id: 9, name: "Eternal Chain Bracelet", category: "Bracelets", price: 1099, originalPrice: 1499, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.6, bestSeller: false, newArrival: true },
-      { id: 10, name: "Gold Bangle Bracelet", category: "Bracelets", price: 1299, originalPrice: 1599, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.7, bestSeller: true, newArrival: false },
-      { id: 11, name: "Pearl Bracelet", category: "Bracelets", price: 699, originalPrice: null, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: true },
-      { id: 12, name: "Chain Link Bracelet", category: "Bracelets", price: 899, originalPrice: 1199, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.4, bestSeller: false, newArrival: false },
-      // Chains (4)
-      { id: 13, name: "Gold Chain Necklace", category: "Chains", price: 1599, originalPrice: 1999, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.7, bestSeller: true, newArrival: false },
-      { id: 14, name: "Silver Chain", category: "Chains", price: 999, originalPrice: 1299, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: true },
-      { id: 15, name: "Layered Chain Set", category: "Chains", price: 1899, originalPrice: 2499, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.8, bestSeller: false, newArrival: true },
-      { id: 16, name: "Thin Gold Chain", category: "Chains", price: 699, originalPrice: null, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.4, bestSeller: false, newArrival: false },
+      { id: 13, name: "Eternal Chain Bracelet", category: "Bracelets", price: 1099, originalPrice: 1499, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.6, bestSeller: false, newArrival: true },
+      { id: 14, name: "Gold Bangle Bracelet", category: "Bracelets", price: 1299, originalPrice: 1599, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.7, bestSeller: true, newArrival: false },
+      { id: 15, name: "Pearl Bracelet", category: "Bracelets", price: 699, originalPrice: null, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: true },
+      { id: 16, name: "Chain Link Bracelet", category: "Bracelets", price: 899, originalPrice: 1199, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.4, bestSeller: false, newArrival: false },
+      // Bangles (4)
+      { id: 17, name: "Gold Bangle Set", category: "Bangles", price: 1599, originalPrice: 1999, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.7, bestSeller: true, newArrival: false },
+      { id: 18, name: "Silver Bangle", category: "Bangles", price: 999, originalPrice: 1299, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: true },
+      { id: 19, name: "Pearl Bangle", category: "Bangles", price: 799, originalPrice: null, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.4, bestSeller: false, newArrival: false },
+      { id: 20, name: "Designer Bangle", category: "Bangles", price: 1899, originalPrice: 2499, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.8, bestSeller: false, newArrival: true },
+      // Anklets (4)
+      { id: 21, name: "Silver Anklet", category: "Anklets", price: 699, originalPrice: 899, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: true },
+      { id: 22, name: "Gold Anklet", category: "Anklets", price: 1099, originalPrice: 1399, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.6, bestSeller: true, newArrival: false },
+      { id: 23, name: "Pearl Anklet", category: "Anklets", price: 899, originalPrice: null, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.4, bestSeller: false, newArrival: false },
+      { id: 24, name: "Chain Anklet", category: "Anklets", price: 599, originalPrice: 799, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.3, bestSeller: false, newArrival: true },
+      // Nose pins (4)
+      { id: 25, name: "Gold Nose Pin", category: "Nose pins", price: 399, originalPrice: null, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: true },
+      { id: 26, name: "Diamond Nose Pin", category: "Nose pins", price: 699, originalPrice: 899, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.7, bestSeller: true, newArrival: false },
+      { id: 27, name: "Pearl Nose Pin", category: "Nose pins", price: 299, originalPrice: null, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.3, bestSeller: false, newArrival: false },
+      { id: 28, name: "Designer Nose Pin", category: "Nose pins", price: 499, originalPrice: 699, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.4, bestSeller: false, newArrival: true },
+      // Watches (4)
+      { id: 29, name: "Gold Dial Watch", category: "Watches", price: 2499, originalPrice: 2999, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.8, bestSeller: true, newArrival: false },
+      { id: 30, name: "Silver Chain Watch", category: "Watches", price: 1999, originalPrice: 2499, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.6, bestSeller: false, newArrival: true },
+      { id: 31, name: "Pearl Dial Watch", category: "Watches", price: 1799, originalPrice: null, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: false },
+      { id: 32, name: "Designer Watch", category: "Watches", price: 2999, originalPrice: 3999, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.9, bestSeller: false, newArrival: true },
     ];
 
-    // ----- render category product row -----
+    // ----- render shop products with filter -----
+    function renderShopProducts(category = 'all') {
+      const grid = document.getElementById('shopProductsGrid');
+      if (!grid) return;
+      
+      const filtered = category === 'all' ? allProducts : allProducts.filter(p => p.category === category);
+      
+      grid.innerHTML = filtered.map(p => {
+        const discount = p.originalPrice ? Math.round((1 - p.price/p.originalPrice)*100) : 0;
+        return `
+          <div class="product-card" data-category="${p.category}">
+            <div class="product-image">
+              <img src="${p.image}" alt="${p.name}" loading="lazy" />
+              <div class="product-actions">
+                <button onclick="toggleWishlist(${p.id})" aria-label="Add to wishlist"><i class="far fa-heart"></i></button>
+                <button onclick="quickView(${p.id})" aria-label="Quick view"><i class="fas fa-eye"></i></button>
+              </div>
+            </div>
+            <div class="product-info">
+              <div class="product-category">${p.category}</div>
+              <div class="product-name">${p.name}</div>
+              <div class="product-rating"><i class="fas fa-star"></i> ${p.rating}</div>
+              <div class="product-price">
+                <span class="price-current">₹${p.price}</span>
+                ${p.originalPrice ? `<span class="price-original">₹${p.originalPrice}</span>` : ''}
+                ${discount > 0 ? `<span class="discount">${discount}%</span>` : ''}
+              </div>
+              <button class="add-to-cart-btn" onclick="addToCart(${p.id})">Add to Cart</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ----- render category product row (homepage) -----
     function renderCategoryRow(category) {
       const row = document.getElementById('categoryProductsRow');
       if (!row) return;
@@ -1252,7 +1545,7 @@
       }).join('');
     }
 
-    // ----- category filter -----
+    // ----- category filter for homepage -----
     let currentCategory = 'all';
 
     function filterProducts(category) {
@@ -1270,6 +1563,50 @@
       const newProducts = allProducts.filter(p => p.newArrival);
       const filteredNew = category === 'all' ? newProducts : newProducts.filter(p => p.category === category);
       renderProductCards('newArrivalsGrid', filteredNew);
+    }
+
+    // ----- Shop page filter -----
+    function filterShopProducts(category) {
+      renderShopProducts(category);
+      document.querySelectorAll('#shopCategoryFilter .filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === category);
+      });
+    }
+
+    // ----- Show/Hide Shop Page -----
+    function showShopPage(e) {
+      if (e) e.preventDefault();
+      document.getElementById('homeHero').style.display = 'none';
+      document.getElementById('categoriesSection').style.display = 'none';
+      document.getElementById('best-sellers').style.display = 'none';
+      document.getElementById('new-arrivals').style.display = 'none';
+      document.querySelector('.promise').style.display = 'none';
+      document.querySelector('.promo-banner').style.display = 'none';
+      document.querySelector('.reviews').style.display = 'none';
+      document.querySelector('.instagram-gallery').style.display = 'none';
+      document.querySelector('.newsletter').style.display = 'none';
+      document.getElementById('shopPage').style.display = 'block';
+      renderShopProducts('all');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.querySelectorAll('.nav-primary a').forEach(a => a.classList.remove('active'));
+      document.querySelector('.nav-primary a[href="#"]')?.classList.add('active');
+    }
+
+    function hideShopPage(e) {
+      if (e) e.preventDefault();
+      document.getElementById('homeHero').style.display = 'flex';
+      document.getElementById('categoriesSection').style.display = 'block';
+      document.getElementById('best-sellers').style.display = 'block';
+      document.getElementById('new-arrivals').style.display = 'block';
+      document.querySelector('.promise').style.display = 'block';
+      document.querySelector('.promo-banner').style.display = 'block';
+      document.querySelector('.reviews').style.display = 'block';
+      document.querySelector('.instagram-gallery').style.display = 'block';
+      document.querySelector('.newsletter').style.display = 'block';
+      document.getElementById('shopPage').style.display = 'none';
+      document.querySelectorAll('.nav-primary a').forEach(a => a.classList.remove('active'));
+      document.querySelector('.nav-primary a[href="index.html"]')?.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // ----- cart & wishlist -----
@@ -1314,7 +1651,7 @@
       updateWishlistBadge();
     }
 
-    // ----- mobile nav -----
+    // ----- mobile nav and events -----
     document.addEventListener('DOMContentLoaded', function() {
       const hamburger = document.getElementById('hamburger');
       const closeNav = document.getElementById('closeNav');
@@ -1329,9 +1666,17 @@
         });
       }
       
+      // Homepage category filter
       document.querySelectorAll('.cat-item').forEach(btn => {
         btn.addEventListener('click', function() {
           filterProducts(this.dataset.category);
+        });
+      });
+      
+      // Shop page category filter
+      document.querySelectorAll('#shopCategoryFilter .filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          filterShopProducts(this.dataset.filter);
         });
       });
       
