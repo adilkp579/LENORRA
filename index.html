@@ -242,7 +242,7 @@
     }
 
     /* ============================================================
-       HERO - FULL BACKGROUND IMAGE (NO 3D, NO PHOTO)
+       HERO - FULL BACKGROUND IMAGE
     ============================================================ */
     .hero {
       display: flex;
@@ -978,11 +978,17 @@
         padding: 2rem 0;
         border-radius: 20px;
       }
+      /* Mobile: 1 row 2 products - 100% width */
       .shop-page .product-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
       }
-      .shop-page .product-image { height: 200px; }
+      .shop-page .product-image { height: 220px; }
+      .shop-page .product-info { padding: 0.7rem; }
+      .shop-page .product-name { font-size: 0.9rem; }
+      .shop-page .price-current { font-size: 1rem; }
+      .shop-page .add-to-cart-btn { font-size: 0.8rem; padding: 0.5rem; }
+      
       .shop-category-filter {
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -1100,15 +1106,16 @@
         padding: 1.5rem 0;
         border-radius: 16px;
       }
+      /* Mobile: 1 row 2 products - 100% width, larger cards */
       .shop-page .product-grid {
         grid-template-columns: 1fr 1fr;
         gap: 0.7rem;
       }
-      .shop-page .product-image { height: 160px; }
-      .shop-page .product-info { padding: 0.6rem; }
-      .shop-page .product-name { font-size: 0.85rem; }
-      .shop-page .price-current { font-size: 0.95rem; }
-      .shop-page .add-to-cart-btn { font-size: 0.75rem; padding: 0.4rem; }
+      .shop-page .product-image { height: 200px; }
+      .shop-page .product-info { padding: 0.7rem; }
+      .shop-page .product-name { font-size: 0.9rem; }
+      .shop-page .price-current { font-size: 1rem; }
+      .shop-page .add-to-cart-btn { font-size: 0.8rem; padding: 0.5rem; }
       .shop-category-filter .filter-btn { font-size: 0.7rem; padding: 0.3rem 0.7rem; }
 
       .category-nav { padding: 0.4rem 0.6rem; gap: 0.3rem; }
@@ -1169,8 +1176,10 @@
       .hero-content h1 { font-size: 1.6rem; }
       .hero { margin: 0 0.5rem 1rem; border-radius: 14px; }
 
-      .shop-page .product-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-      .shop-page .product-image { height: 140px; }
+      .shop-page .product-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+      .shop-page .product-image { height: 170px; }
+      .shop-page .product-name { font-size: 0.8rem; }
+      .shop-page .price-current { font-size: 0.9rem; }
       .shop-category-filter .filter-btn { font-size: 0.65rem; padding: 0.25rem 0.6rem; }
 
       .category-nav .cat-item { padding: 0.25rem 0.6rem; font-size: 0.7rem; }
@@ -1200,7 +1209,7 @@
   </style>
 </head>
 <body>
-  <!-- HEADER - FLOATING GLASSMORPHISM PILL -->
+  <!-- HEADER -->
   <header class="header" role="banner">
     <div class="header-inner">
       <div class="logo"><a href="index.html">LENORRA</a></div>
@@ -1250,12 +1259,11 @@
       </div>
     </section>
 
-    <!-- SHOP PAGE (All Products with Category Filter) -->
+    <!-- SHOP PAGE -->
     <section class="shop-page" id="shopPage" style="display:none;">
       <div class="container">
         <h2 class="section-title">Shop All Jewellery</h2>
         
-        <!-- Category Filter -->
         <div class="shop-category-filter" id="shopCategoryFilter">
           <button class="filter-btn active" data-filter="all"><i class="fas fa-gem"></i> All</button>
           <button class="filter-btn" data-filter="Rings"><i class="fas fa-gem"></i> Rings</button>
@@ -1268,9 +1276,7 @@
           <button class="filter-btn" data-filter="Watches"><i class="fas fa-gem"></i> Watches</button>
         </div>
 
-        <div class="product-grid" id="shopProductsGrid">
-          <!-- Products rendered by JavaScript -->
-        </div>
+        <div class="product-grid" id="shopProductsGrid"></div>
         <div style="text-align: center; margin-top: 2rem;">
           <a href="index.html" class="back-link" onclick="hideShopPage(event)">
             <i class="fas fa-arrow-left"></i> Back to Home
@@ -1279,7 +1285,7 @@
       </div>
     </section>
 
-    <!-- SHOP BY CATEGORY - NAVBAR + PRODUCT ROW -->
+    <!-- SHOP BY CATEGORY -->
     <section class="categories" id="categoriesSection" aria-label="Shop by category">
       <div class="container">
         <h2 class="section-title">Shop by Category</h2>
@@ -1290,7 +1296,6 @@
           <button class="cat-item" data-category="Bracelets"><i class="fas fa-gem"></i> Bracelets</button>
           <button class="cat-item" data-category="Chains"><i class="fas fa-gem"></i> Chains</button>
         </div>
-        
         <div class="category-products-wrapper" id="categoryProductsWrapper">
           <div class="category-products-row" id="categoryProductsRow"></div>
         </div>
@@ -1400,7 +1405,7 @@
 
   <!-- ========== JAVASCRIPT ========== -->
   <script>
-    // ----- 28 PRODUCTS (4 per category for 7 categories) -----
+    // ----- 32 PRODUCTS (4 per category for 8 categories) -----
     const allProducts = [
       // Necklaces (4)
       { id: 1, name: "Celeste Pearl Necklace", category: "Necklaces", price: 1299, originalPrice: 1799, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.8, bestSeller: true, newArrival: false },
@@ -1666,14 +1671,12 @@
         });
       }
       
-      // Homepage category filter
       document.querySelectorAll('.cat-item').forEach(btn => {
         btn.addEventListener('click', function() {
           filterProducts(this.dataset.category);
         });
       });
       
-      // Shop page category filter
       document.querySelectorAll('#shopCategoryFilter .filter-btn').forEach(btn => {
         btn.addEventListener('click', function() {
           filterShopProducts(this.dataset.filter);
