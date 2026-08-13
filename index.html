@@ -17,7 +17,7 @@
   <style>
     /* ===== BASE ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: #f8f4f0; color: #1e1b1a; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Inter', sans-serif; background: #f8f4f0; color: #1e1b1a; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
     .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
@@ -28,6 +28,8 @@
     .btn.primary:hover { background: #b89a7b; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
     .btn.secondary { background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); border: 1.5px solid rgba(255,255,255,0.3); color: #1e1b1a; }
     .btn.secondary:hover { background: #1e1b1a; color: #f8f4f0; border-color: #1e1b1a; }
+    .btn-whatsapp { background: #25D366; color: #fff; }
+    .btn-whatsapp:hover { background: #1da85c; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
 
     /* ===== HEADER ===== */
     .header {
@@ -238,37 +240,39 @@
       border-color: rgba(184, 154, 123, 0.3);
     }
 
-    /* ===== HERO ===== */
+    /* ============================================================
+       HERO - FULL SIZE BACKGROUND IMAGE (NO BLUR OVERLAY)
+    ============================================================ */
     .hero {
       display: flex;
       align-items: center;
-      justify-content: center;
-      min-height: 80vh;
+      justify-content: flex-start;
+      min-height: 90vh;
       overflow: hidden;
       border-radius: 30px;
       margin: 0 1.5rem 2rem;
       position: relative;
-      background: url('https://i.pinimg.com/736x/1a/8c/78/1a8c788b43c650b090520016957f2aa8.jpg') center/cover no-repeat;
+      background: url('https://theglossarymagazine.com/wp-content/uploads/Vuitton-Radiance-Necklace-2.webp') center/cover no-repeat;
+      background-size: cover;
     }
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(2px);
+      background: rgba(0, 0, 0, 0.4);
       border-radius: 30px;
       z-index: 0;
     }
     .hero-content {
-      text-align: center;
-      padding: 4rem 2rem;
+      text-align: left;
+      padding: 4rem 0 4rem 4rem;
       z-index: 2;
       position: relative;
-      max-width: 800px;
+      max-width: 700px;
     }
     .hero-content h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 4.5rem;
+      font-size: 4.8rem;
       line-height: 1.15;
       font-weight: 700;
       color: #ffffff;
@@ -280,22 +284,20 @@
       color: rgba(255,255,255,0.9);
       margin: 1.5rem 0 2.5rem;
       text-shadow: 0 2px 20px rgba(0,0,0,0.2);
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 500px;
     }
     .hero-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      justify-content: center;
+      justify-content: flex-start;
     }
     .hero-buttons .btn {
       backdrop-filter: blur(10px);
     }
 
     /* ============================================================
-       SHOP PAGE - 100% WIDTH ON MOBILE, 1 ROW 2 PRODUCTS
+       SHOP PAGE
     ============================================================ */
     .shop-page {
       min-height: 80vh;
@@ -457,6 +459,197 @@
     }
     .shop-page .back-link i {
       margin-right: 0.5rem;
+    }
+
+    /* ============================================================
+       PRODUCT DETAILS OVERLAY (Quick View)
+    ============================================================ */
+    .product-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .product-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    .product-overlay-inner {
+      background: #f8f4f0;
+      border-radius: 30px;
+      max-width: 1000px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2.5rem;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .product-overlay.active .product-overlay-inner {
+      transform: scale(1);
+    }
+    .product-overlay-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.5rem;
+      background: rgba(255,255,255,0.8);
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      z-index: 10;
+    }
+    .product-overlay-close:hover {
+      background: #fff;
+      transform: rotate(90deg);
+    }
+    .product-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+    .product-detail-images {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .product-detail-main-image {
+      border-radius: 20px;
+      overflow: hidden;
+      background: #ede8e3;
+      aspect-ratio: 1/1;
+    }
+    .product-detail-main-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .product-detail-thumbnails {
+      display: flex;
+      gap: 0.8rem;
+      overflow-x: auto;
+      padding-bottom: 0.3rem;
+    }
+    .product-detail-thumbnails img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: 0.2s;
+      flex-shrink: 0;
+    }
+    .product-detail-thumbnails img:hover,
+    .product-detail-thumbnails img.active {
+      border-color: #b89a7b;
+    }
+    .product-detail-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .product-detail-info .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    .product-detail-info .product-category {
+      font-size: 0.85rem;
+      color: #7a6e68;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .product-detail-info .product-rating {
+      color: #b89a7b;
+      font-size: 0.9rem;
+    }
+    .product-detail-info .product-price {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-size: 1.4rem;
+    }
+    .product-detail-info .price-current {
+      font-weight: 700;
+    }
+    .product-detail-info .price-original {
+      text-decoration: line-through;
+      color: #9a8a80;
+      font-size: 1.1rem;
+    }
+    .product-detail-info .discount {
+      background: #e8d9cf;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #7a4f3a;
+    }
+    .product-detail-info .product-description {
+      color: #4a3f3a;
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .product-detail-info .product-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1.5rem;
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.5);
+      padding: 1rem 1.2rem;
+      border-radius: 16px;
+    }
+    .product-detail-info .product-meta span strong {
+      font-weight: 600;
+      color: #1e1b1a;
+    }
+    .product-detail-info .product-meta span {
+      color: #4a3f3a;
+    }
+    .product-detail-info .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .product-detail-info .action-buttons .btn {
+      flex: 1;
+      padding: 0.8rem;
+      font-size: 0.95rem;
+    }
+    .product-detail-info .wishlist-btn {
+      background: transparent;
+      border: 1px solid #d6cdc6;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-detail-info .wishlist-btn:hover {
+      border-color: #b89a7b;
+      background: rgba(184,154,123,0.1);
     }
 
     /* ============================================================
@@ -914,7 +1107,7 @@
     .whatsapp-float:hover { transform: scale(1.08); }
 
     /* ============================================================
-       RESPONSIVE - MOBILE OPTIMIZED
+       RESPONSIVE
     ============================================================ */
 
     @media (max-width: 1024px) {
@@ -923,7 +1116,9 @@
       .ig-grid { grid-template-columns: repeat(3, 1fr); }
       .review-grid { grid-template-columns: repeat(2, 1fr); }
       .hero-content h1 { font-size: 3.5rem; }
+      .hero-content { padding: 3rem 0 3rem 3rem; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .product-detail-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     }
 
     @media (max-width: 768px) {
@@ -945,66 +1140,46 @@
       .badge { font-size: 0.5rem; min-width: 18px; top: -2px; right: -2px; }
 
       .hero {
-        min-height: 60vh;
+        min-height: 70vh;
         margin: 0 0.8rem 1.5rem;
         border-radius: 20px;
         background-position: center 30%;
+        background-size: cover;
       }
       .hero::before { border-radius: 20px; }
-      .hero-content { padding: 2.5rem 1.5rem; }
+      .hero-content {
+        text-align: center;
+        padding: 2.5rem 1.5rem;
+        max-width: 100%;
+      }
       .hero-content h1 { font-size: 2.5rem; }
-      .hero-sub { font-size: 1rem; margin: 1rem 0 1.5rem; }
+      .hero-sub { font-size: 1rem; margin: 1rem 0 1.5rem; max-width: 100%; }
+      .hero-buttons { justify-content: center; }
       .hero-buttons .btn { padding: 0.7rem 1.8rem; font-size: 0.9rem; }
 
-      /* SHOP PAGE - 100% WIDTH, 1 ROW 2 PRODUCTS */
       .shop-page {
-        margin: 0 0.5rem 1.5rem;
-        padding: 1.5rem 0;
-        border-radius: 16px;
+        margin: 0 0.8rem 1.5rem;
+        padding: 2rem 0;
+        border-radius: 20px;
       }
-      .shop-page .container {
-        padding: 0 0.5rem;
-      }
+      .shop-page .container { padding: 0 0.8rem; }
       .shop-page .product-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 0.6rem;
+        gap: 0.8rem;
         width: 100%;
       }
-      .shop-page .product-card {
-        width: 100%;
-        min-width: 0;
-      }
-      .shop-page .product-image {
-        height: 180px;
-      }
-      .shop-page .product-info {
-        padding: 0.6rem;
-      }
-      .shop-page .product-name {
-        font-size: 0.85rem;
-      }
-      .shop-page .price-current {
-        font-size: 0.95rem;
-      }
-      .shop-page .add-to-cart-btn {
-        font-size: 0.75rem;
-        padding: 0.4rem;
-      }
-      .shop-page .product-category {
-        font-size: 0.7rem;
-      }
-      .shop-page .product-rating {
-        font-size: 0.7rem;
-      }
-      .shop-page .product-actions button {
-        width: 28px;
-        height: 28px;
-        font-size: 0.75rem;
-      }
-      .shop-page .discount {
-        font-size: 0.6rem;
-        padding: 0.05rem 0.4rem;
-      }
+      .shop-page .product-card { width: 100%; min-width: 0; }
+      .shop-page .product-image { height: 200px; }
+      .shop-page .product-info { padding: 0.7rem; }
+      .shop-page .product-name { font-size: 0.9rem; }
+      .shop-page .price-current { font-size: 1rem; }
+      .shop-page .add-to-cart-btn { font-size: 0.8rem; padding: 0.45rem; margin-top: 0.6rem; }
+      .shop-page .product-category { font-size: 0.7rem; }
+      .shop-page .product-rating { font-size: 0.75rem; }
+      .shop-page .product-actions button { width: 30px; height: 30px; font-size: 0.8rem; }
+      .shop-page .discount { font-size: 0.65rem; padding: 0.05rem 0.4rem; }
+      .shop-page .price-original { font-size: 0.8rem; }
+      .shop-page .section-title { font-size: 1.8rem; margin-bottom: 1.5rem; }
       
       .shop-category-filter {
         flex-wrap: nowrap;
@@ -1020,8 +1195,8 @@
       .shop-category-filter::-webkit-scrollbar { display: none; }
       .shop-category-filter .filter-btn {
         flex: 0 0 auto;
-        font-size: 0.75rem;
-        padding: 0.3rem 0.8rem;
+        font-size: 0.8rem;
+        padding: 0.35rem 0.9rem;
       }
 
       .category-nav {
@@ -1042,34 +1217,20 @@
       .category-nav .cat-item {
         flex: 0 0 auto;
         scroll-snap-align: start;
-        padding: 0.3rem 0.8rem;
-        font-size: 0.8rem;
+        padding: 0.35rem 0.9rem;
+        font-size: 0.85rem;
         white-space: nowrap;
       }
-      .category-nav .cat-item i { font-size: 0.7rem; }
+      .category-nav .cat-item i { font-size: 0.75rem; }
 
-      .category-products-row .product-card {
-        width: 170px;
-      }
-      .category-products-row .product-card .product-image {
-        height: 150px;
-      }
-      .category-products-row .product-card .product-info {
-        padding: 0.5rem;
-      }
-      .category-products-row .product-card .product-name {
-        font-size: 0.75rem;
-      }
-      .category-products-row .product-card .price-current {
-        font-size: 0.8rem;
-      }
+      .category-products-row .product-card { width: 190px; }
+      .category-products-row .product-card .product-image { height: 160px; }
+      .category-products-row .product-card .product-info { padding: 0.5rem; }
+      .category-products-row .product-card .product-name { font-size: 0.8rem; }
+      .category-products-row .product-card .price-current { font-size: 0.85rem; }
 
-      .product-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.7rem;
-      }
-      .product-image { height: 160px; }
+      .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+      .product-image { height: 180px; }
       .product-info { padding: 0.6rem; }
       .product-name { font-size: 0.85rem; }
       .price-current { font-size: 0.95rem; }
@@ -1092,19 +1253,17 @@
       .new-arrivals-scroll .product-grid::-webkit-scrollbar { display: none; }
       .best-sellers-scroll .product-grid .product-card,
       .new-arrivals-scroll .product-grid .product-card {
-        flex: 0 0 200px;
-        min-width: 180px;
+        flex: 0 0 210px;
+        min-width: 190px;
         scroll-snap-align: start;
         width: auto;
       }
       .best-sellers-scroll .product-grid .product-card .product-image,
-      .new-arrivals-scroll .product-grid .product-card .product-image {
-        height: 180px;
-      }
+      .new-arrivals-scroll .product-grid .product-card .product-image { height: 190px; }
 
       .promise { margin: 0 0.8rem; padding: 2.5rem 0; border-radius: 20px; }
       .promise-grid { gap: 0.6rem; }
-      .promise-item { padding: 0.3rem 1rem; font-size: 0.8rem; }
+      .promise-item { padding: 0.35rem 1.2rem; font-size: 0.85rem; }
       .review-grid { grid-template-columns: 1fr; gap: 1rem; }
       .ig-grid { grid-template-columns: repeat(3, 1fr); gap: 0.3rem; }
       .footer { margin: 0 0.8rem; border-radius: 20px 20px 0 0; padding: 1.5rem 0 1rem; }
@@ -1112,12 +1271,20 @@
       .footer-brand p { max-width: 100%; }
       .newsletter { margin: 0 0.8rem 1.5rem; border-radius: 20px; padding: 2.5rem 0; }
       .promo-banner { margin: 1.5rem 0.8rem; border-radius: 20px; padding: 2rem 0; }
-      .section-title { font-size: 1.6rem; }
-      .promise h2, .newsletter h2, .promo-banner p { font-size: 1.6rem; }
+      .section-title { font-size: 1.8rem; }
+      .promise h2, .newsletter h2, .promo-banner p { font-size: 1.8rem; }
       .container { padding: 0 0.8rem; }
       .whatsapp-float { width: 44px; height: 44px; font-size: 1.5rem; bottom: 1rem; right: 1rem; }
-      .shop-page .section-title { font-size: 1.6rem; margin-bottom: 1.5rem; }
       .shop-page .back-link { font-size: 0.9rem; margin-top: 1.5rem; }
+
+      /* Product Overlay Mobile */
+      .product-overlay { padding: 1rem; }
+      .product-overlay-inner { padding: 1.5rem; border-radius: 20px; max-height: 95vh; }
+      .product-detail-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .product-detail-main-image { aspect-ratio: 1/1; }
+      .product-detail-thumbnails img { width: 60px; height: 60px; }
+      .product-detail-info .product-name { font-size: 1.5rem; }
+      .product-detail-info .product-price { font-size: 1.2rem; }
     }
 
     @media (max-width: 480px) {
@@ -1132,118 +1299,63 @@
       .icon-btn { font-size: 0.85rem; width: 32px; height: 32px; }
       .badge { font-size: 0.4rem; min-width: 15px; padding: 0.05rem 0.25rem; top: -2px; right: -2px; }
 
-      .hero { min-height: 45vh; margin: 0 0.3rem 1rem; border-radius: 14px; }
+      .hero { min-height: 60vh; margin: 0 0.3rem 1rem; border-radius: 14px; background-size: cover; }
       .hero-content { padding: 1.5rem 1rem; }
       .hero-content h1 { font-size: 1.8rem; }
       .hero-sub { font-size: 0.85rem; margin: 0.8rem 0 1.2rem; }
       .hero-buttons .btn { padding: 0.5rem 1.2rem; font-size: 0.75rem; }
 
-      /* SHOP PAGE - MOBILE OPTIMIZED */
       .shop-page {
         margin: 0 0.3rem 1rem;
-        padding: 1rem 0;
+        padding: 1.2rem 0;
         border-radius: 14px;
       }
-      .shop-page .container {
-        padding: 0 0.3rem;
-      }
-      .shop-page .product-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.5rem;
-      }
-      .shop-page .product-image {
-        height: 160px;
-      }
-      .shop-page .product-info {
-        padding: 0.5rem;
-      }
-      .shop-page .product-name {
-        font-size: 0.8rem;
-      }
-      .shop-page .price-current {
-        font-size: 0.9rem;
-      }
-      .shop-page .add-to-cart-btn {
-        font-size: 0.7rem;
-        padding: 0.35rem;
-        margin-top: 0.5rem;
-      }
-      .shop-page .product-category {
-        font-size: 0.65rem;
-      }
-      .shop-page .product-rating {
-        font-size: 0.65rem;
-      }
-      .shop-page .product-actions button {
-        width: 24px;
-        height: 24px;
-        font-size: 0.65rem;
-      }
-      .shop-page .discount {
-        font-size: 0.55rem;
-        padding: 0.05rem 0.3rem;
-      }
-      .shop-page .price-original {
-        font-size: 0.7rem;
-      }
-      .shop-page .section-title {
-        font-size: 1.4rem;
-        margin-bottom: 1rem;
-      }
-      .shop-category-filter .filter-btn {
-        font-size: 0.65rem;
-        padding: 0.25rem 0.6rem;
-      }
-      .shop-page .back-link {
-        font-size: 0.8rem;
-        margin-top: 1rem;
-      }
+      .shop-page .container { padding: 0 0.3rem; }
+      .shop-page .product-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+      .shop-page .product-image { height: 170px; }
+      .shop-page .product-info { padding: 0.5rem 0.5rem 0.7rem; }
+      .shop-page .product-name { font-size: 0.8rem; }
+      .shop-page .price-current { font-size: 0.9rem; }
+      .shop-page .add-to-cart-btn { font-size: 0.7rem; padding: 0.35rem; margin-top: 0.5rem; }
+      .shop-page .product-category { font-size: 0.65rem; }
+      .shop-page .product-rating { font-size: 0.65rem; }
+      .shop-page .product-actions button { width: 26px; height: 26px; font-size: 0.7rem; }
+      .shop-page .discount { font-size: 0.6rem; padding: 0.05rem 0.35rem; }
+      .shop-page .price-original { font-size: 0.75rem; }
+      .shop-page .section-title { font-size: 1.5rem; margin-bottom: 1rem; }
+      .shop-category-filter .filter-btn { font-size: 0.7rem; padding: 0.25rem 0.7rem; }
+      .shop-page .back-link { font-size: 0.85rem; margin-top: 1rem; }
 
-      .category-nav .cat-item {
-        padding: 0.25rem 0.6rem;
-        font-size: 0.7rem;
-      }
-      .category-products-row .product-card {
-        width: 150px;
-      }
-      .category-products-row .product-card .product-image {
-        height: 130px;
-      }
-      .category-products-row .product-card .product-info {
-        padding: 0.4rem;
-      }
-      .category-products-row .product-card .product-name {
-        font-size: 0.7rem;
-      }
-      .category-products-row .product-card .price-current {
-        font-size: 0.75rem;
-      }
+      .category-nav .cat-item { padding: 0.25rem 0.7rem; font-size: 0.75rem; }
+      .category-products-row .product-card { width: 160px; }
+      .category-products-row .product-card .product-image { height: 140px; }
+      .category-products-row .product-card .product-info { padding: 0.4rem; }
+      .category-products-row .product-card .product-name { font-size: 0.75rem; }
+      .category-products-row .product-card .price-current { font-size: 0.8rem; }
 
       .product-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-      .product-image { height: 140px; }
+      .product-image { height: 150px; }
       .product-info { padding: 0.5rem; }
-      .product-name { font-size: 0.75rem; }
-      .price-current { font-size: 0.85rem; }
-      .price-original { font-size: 0.7rem; }
-      .add-to-cart-btn { font-size: 0.65rem; padding: 0.3rem; }
-      .discount { font-size: 0.6rem; padding: 0.05rem 0.3rem; }
+      .product-name { font-size: 0.8rem; }
+      .price-current { font-size: 0.9rem; }
+      .price-original { font-size: 0.75rem; }
+      .add-to-cart-btn { font-size: 0.7rem; padding: 0.35rem; }
+      .discount { font-size: 0.6rem; padding: 0.05rem 0.35rem; }
 
       .best-sellers-scroll .product-grid .product-card,
       .new-arrivals-scroll .product-grid .product-card {
-        flex: 0 0 160px;
-        min-width: 150px;
+        flex: 0 0 170px;
+        min-width: 160px;
       }
       .best-sellers-scroll .product-grid .product-card .product-image,
-      .new-arrivals-scroll .product-grid .product-card .product-image {
-        height: 150px;
-      }
+      .new-arrivals-scroll .product-grid .product-card .product-image { height: 160px; }
 
-      .section-title { font-size: 1.3rem; }
-      .promise h2, .newsletter h2, .promo-banner p { font-size: 1.3rem; }
+      .section-title { font-size: 1.4rem; }
+      .promise h2, .newsletter h2, .promo-banner p { font-size: 1.4rem; }
       .promise { padding: 2rem 0; }
       .newsletter { padding: 2rem 0; }
       .promo-banner { padding: 1.5rem 0; margin: 1rem 0.3rem; }
-      .promise-item { font-size: 0.7rem; padding: 0.25rem 0.8rem; }
+      .promise-item { font-size: 0.75rem; padding: 0.25rem 0.9rem; }
       .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 1rem; }
       .footer-brand p { max-width: 100%; margin: 0.3rem auto; }
       .social-links { justify-content: center; display: flex; }
@@ -1251,6 +1363,13 @@
       .newsletter-form button { padding: 0.5rem 1.2rem; font-size: 0.8rem; }
       .container { padding: 0 0.5rem; }
       .whatsapp-float { width: 38px; height: 38px; font-size: 1.2rem; bottom: 0.8rem; right: 0.8rem; }
+
+      /* Product Overlay Mobile Small */
+      .product-overlay-inner { padding: 1rem; }
+      .product-detail-thumbnails img { width: 50px; height: 50px; }
+      .product-detail-info .product-name { font-size: 1.2rem; }
+      .product-detail-info .product-price { font-size: 1rem; }
+      .product-detail-info .product-meta { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 360px) {
@@ -1266,34 +1385,32 @@
       .badge { font-size: 0.35rem; min-width: 12px; padding: 0.05rem 0.2rem; }
 
       .hero-content h1 { font-size: 1.5rem; }
-      .hero { margin: 0 0.2rem 0.8rem; border-radius: 12px; }
+      .hero { margin: 0 0.2rem 0.8rem; border-radius: 12px; background-size: cover; }
 
-      .shop-page .product-image { height: 140px; }
-      .shop-page .product-name { font-size: 0.7rem; }
-      .shop-page .price-current { font-size: 0.8rem; }
-      .shop-page .add-to-cart-btn { font-size: 0.6rem; padding: 0.25rem; }
+      .shop-page .product-image { height: 150px; }
+      .shop-page .product-name { font-size: 0.75rem; }
+      .shop-page .price-current { font-size: 0.85rem; }
+      .shop-page .add-to-cart-btn { font-size: 0.65rem; padding: 0.25rem; }
       .shop-category-filter .filter-btn { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
 
       .category-nav .cat-item { padding: 0.2rem 0.5rem; font-size: 0.65rem; }
-      .category-products-row .product-card { width: 130px; }
+      .category-products-row .product-card { width: 140px; }
       .category-products-row .product-card .product-image { height: 120px; }
 
       .product-grid { grid-template-columns: 1fr 1fr; gap: 0.4rem; }
-      .product-image { height: 120px; }
+      .product-image { height: 130px; }
       .product-name { font-size: 0.7rem; }
-      .price-current { font-size: 0.75rem; }
+      .price-current { font-size: 0.8rem; }
       .price-original { font-size: 0.65rem; }
       .add-to-cart-btn { font-size: 0.6rem; padding: 0.25rem; }
 
       .best-sellers-scroll .product-grid .product-card,
       .new-arrivals-scroll .product-grid .product-card {
-        flex: 0 0 140px;
-        min-width: 130px;
+        flex: 0 0 150px;
+        min-width: 140px;
       }
       .best-sellers-scroll .product-grid .product-card .product-image,
-      .new-arrivals-scroll .product-grid .product-card .product-image {
-        height: 130px;
-      }
+      .new-arrivals-scroll .product-grid .product-card .product-image { height: 140px; }
 
       .promise, .newsletter, .promo-banner { margin: 0 0.3rem 0.8rem; }
       .footer { margin: 0 0.3rem; }
@@ -1338,8 +1455,18 @@
     </div>
   </header>
 
+  <!-- PRODUCT DETAILS OVERLAY -->
+  <div class="product-overlay" id="productOverlay">
+    <div class="product-overlay-inner">
+      <button class="product-overlay-close" onclick="closeProductDetail()"><i class="fas fa-times"></i></button>
+      <div class="product-detail-grid" id="productDetailContent">
+        <!-- Dynamic content -->
+      </div>
+    </div>
+  </div>
+
   <main>
-    <!-- HERO -->
+    <!-- HERO - FULL SIZE BACKGROUND IMAGE -->
     <section class="hero" id="homeHero" aria-label="Featured collection">
       <div class="hero-content">
         <h1>Jewellery That Lasts Beyond the Moment</h1>
@@ -1383,7 +1510,7 @@
         <h2 class="section-title">Shop by Category</h2>
         <div class="category-nav" id="categoryNav">
           <button class="cat-item active" data-category="all"><i class="fas fa-gem"></i> All</button>
-        <!--  <button class="cat-item" data-category="Necklaces"><i class="fas fa-gem"></i> Necklaces</button>-->
+       <!---   <button class="cat-item" data-category="Necklaces"><i class="fas fa-gem"></i> Necklaces</button>-->
           <button class="cat-item" data-category="Rings"><i class="fas fa-gem"></i> Rings</button>
           <button class="cat-item" data-category="Bracelets"><i class="fas fa-gem"></i> Bracelets</button>
           <button class="cat-item" data-category="Chains"><i class="fas fa-gem"></i> Chains</button>
@@ -1497,42 +1624,136 @@
 
   <!-- ========== JAVASCRIPT ========== -->
   <script>
+    // ----- WHATSAPP NUMBER -----
+    const WHATSAPP_NUMBER = "919207271076";
+
     // ----- 32 PRODUCTS -----
     const allProducts = [
-      { id: 1, name: "Celeste Pearl Necklace", category: "Necklaces", price: 1299, originalPrice: 1799, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.8, bestSeller: true, newArrival: false },
-      { id: 2, name: "Layered Necklace Set", category: "Necklaces", price: 2499, originalPrice: 2999, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.9, bestSeller: false, newArrival: true },
-      { id: 3, name: "Gold Chain Necklace", category: "Necklaces", price: 1599, originalPrice: 1999, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.7, bestSeller: true, newArrival: false },
-      { id: 4, name: "Pearl Drop Necklace", category: "Necklaces", price: 899, originalPrice: null, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.6, bestSeller: false, newArrival: true },
-      { id: 5, name: "Minimalist Ring", category: "Rings", price: 699, originalPrice: null, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.7, bestSeller: false, newArrival: true },
-      { id: 6, name: "Diamond Ring", category: "Rings", price: 899, originalPrice: null, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.8, bestSeller: false, newArrival: true },
-      { id: 7, name: "Gold Plated Ring", category: "Rings", price: 499, originalPrice: 699, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: true, newArrival: false },
-      { id: 8, name: "Pearl Ring", category: "Rings", price: 799, originalPrice: 999, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.6, bestSeller: false, newArrival: false },
-      { id: 9, name: "Golden Drop Earrings", category: "Earrings", price: 899, originalPrice: 1199, image: "https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center", rating: 4.7, bestSeller: true, newArrival: false },
-      { id: 10, name: "Pearl Stud Earrings", category: "Earrings", price: 599, originalPrice: null, image: "https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: true },
-      { id: 11, name: "Hoop Earrings", category: "Earrings", price: 749, originalPrice: 999, image: "https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center", rating: 4.6, bestSeller: false, newArrival: false },
-      { id: 12, name: "Chandelier Earrings", category: "Earrings", price: 1299, originalPrice: 1699, image: "https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center", rating: 4.8, bestSeller: true, newArrival: false },
-      { id: 13, name: "Eternal Chain Bracelet", category: "Bracelets", price: 1099, originalPrice: 1499, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.6, bestSeller: false, newArrival: true },
-      { id: 14, name: "Gold Bangle Bracelet", category: "Bracelets", price: 1299, originalPrice: 1599, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.7, bestSeller: true, newArrival: false },
-      { id: 15, name: "Pearl Bracelet", category: "Bracelets", price: 699, originalPrice: null, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: true },
-      { id: 16, name: "Chain Link Bracelet", category: "Bracelets", price: 899, originalPrice: 1199, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.4, bestSeller: false, newArrival: false },
-      { id: 17, name: "Gold Bangle Set", category: "Bangles", price: 1599, originalPrice: 1999, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.7, bestSeller: true, newArrival: false },
-      { id: 18, name: "Silver Bangle", category: "Bangles", price: 999, originalPrice: 1299, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: true },
-      { id: 19, name: "Pearl Bangle", category: "Bangles", price: 799, originalPrice: null, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.4, bestSeller: false, newArrival: false },
-      { id: 20, name: "Designer Bangle", category: "Bangles", price: 1899, originalPrice: 2499, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", rating: 4.8, bestSeller: false, newArrival: true },
-      { id: 21, name: "Silver Anklet", category: "Anklets", price: 699, originalPrice: 899, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: true },
-      { id: 22, name: "Gold Anklet", category: "Anklets", price: 1099, originalPrice: 1399, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.6, bestSeller: true, newArrival: false },
-      { id: 23, name: "Pearl Anklet", category: "Anklets", price: 899, originalPrice: null, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.4, bestSeller: false, newArrival: false },
-      { id: 24, name: "Chain Anklet", category: "Anklets", price: 599, originalPrice: 799, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", rating: 4.3, bestSeller: false, newArrival: true },
-      { id: 25, name: "Gold Nose Pin", category: "Nose pins", price: 399, originalPrice: null, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: true },
-      { id: 26, name: "Diamond Nose Pin", category: "Nose pins", price: 699, originalPrice: 899, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.7, bestSeller: true, newArrival: false },
-      { id: 27, name: "Pearl Nose Pin", category: "Nose pins", price: 299, originalPrice: null, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.3, bestSeller: false, newArrival: false },
-      { id: 28, name: "Designer Nose Pin", category: "Nose pins", price: 499, originalPrice: 699, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", rating: 4.4, bestSeller: false, newArrival: true },
-      { id: 29, name: "Gold Dial Watch", category: "Watches", price: 2499, originalPrice: 2999, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.8, bestSeller: true, newArrival: false },
-      { id: 30, name: "Silver Chain Watch", category: "Watches", price: 1999, originalPrice: 2499, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.6, bestSeller: false, newArrival: true },
-      { id: 31, name: "Pearl Dial Watch", category: "Watches", price: 1799, originalPrice: null, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.5, bestSeller: false, newArrival: false },
-      { id: 32, name: "Designer Watch", category: "Watches", price: 2999, originalPrice: 3999, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", rating: 4.9, bestSeller: false, newArrival: true },
+      { id: 1, name: "Celeste Pearl Necklace", category: "Necklaces", price: 1299, originalPrice: 1799, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center&rot=90", "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center&rot=180"], rating: 4.8, bestSeller: true, newArrival: false, description: "Elegant pearl necklace crafted with premium stainless steel and 18K gold plating. Designed for everyday elegance and long-lasting shine.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 25 },
+      { id: 2, name: "Layered Necklace Set", category: "Necklaces", price: 2499, originalPrice: 2999, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center&rot=90"], rating: 4.9, bestSeller: false, newArrival: true, description: "Beautiful layered necklace set perfect for special occasions.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 15 },
+      { id: 3, name: "Gold Chain Necklace", category: "Necklaces", price: 1599, originalPrice: 1999, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center&rot=90"], rating: 4.7, bestSeller: true, newArrival: false, description: "Classic gold chain necklace that complements any outfit.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 30 },
+      { id: 4, name: "Pearl Drop Necklace", category: "Necklaces", price: 899, originalPrice: null, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center"], rating: 4.6, bestSeller: false, newArrival: true, description: "Delicate pearl drop necklace for everyday elegance.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 20 },
+      { id: 5, name: "Minimalist Ring", category: "Rings", price: 699, originalPrice: null, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center&rot=90"], rating: 4.7, bestSeller: false, newArrival: true, description: "Simple yet elegant minimalist ring for everyday wear.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 40 },
+      { id: 6, name: "Diamond Ring", category: "Rings", price: 899, originalPrice: null, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center"], rating: 4.8, bestSeller: false, newArrival: true, description: "Stunning diamond ring that catches the light beautifully.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 12 },
+      { id: 7, name: "Gold Plated Ring", category: "Rings", price: 499, originalPrice: 699, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center"], rating: 4.5, bestSeller: true, newArrival: false, description: "Affordable gold plated ring with a luxurious look.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 50 },
+      { id: 8, name: "Pearl Ring", category: "Rings", price: 799, originalPrice: 999, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center"], rating: 4.6, bestSeller: false, newArrival: false, description: "Elegant pearl ring for a sophisticated look.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 18 },
+      { id: 9, name: "Golden Drop Earrings", category: "Earrings", price: 899, originalPrice: 1199, image: "https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center"], rating: 4.7, bestSeller: true, newArrival: false, description: "Beautiful golden drop earrings that add glamour to any outfit.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 22 },
+      { id: 10, name: "Pearl Stud Earrings", category: "Earrings", price: 599, originalPrice: null, image: "https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center"], rating: 4.5, bestSeller: false, newArrival: true, description: "Classic pearl stud earrings for everyday elegance.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 35 },
+      { id: 11, name: "Hoop Earrings", category: "Earrings", price: 749, originalPrice: 999, image: "https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center"], rating: 4.6, bestSeller: false, newArrival: false, description: "Trendy hoop earrings that never go out of style.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 28 },
+      { id: 12, name: "Chandelier Earrings", category: "Earrings", price: 1299, originalPrice: 1699, image: "https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1626207873703-a321a45fc0e0?w=400&h=400&fit=crop&crop=center"], rating: 4.8, bestSeller: true, newArrival: false, description: "Stunning chandelier earrings for special occasions.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 10 },
+      { id: 13, name: "Eternal Chain Bracelet", category: "Bracelets", price: 1099, originalPrice: 1499, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center"], rating: 4.6, bestSeller: false, newArrival: true, description: "Eternal chain bracelet that symbolizes everlasting love.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 20 },
+      { id: 14, name: "Gold Bangle Bracelet", category: "Bracelets", price: 1299, originalPrice: 1599, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center"], rating: 4.7, bestSeller: true, newArrival: false, description: "Elegant gold bangle bracelet that adds a touch of luxury.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 15 },
+      { id: 15, name: "Pearl Bracelet", category: "Bracelets", price: 699, originalPrice: null, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center"], rating: 4.5, bestSeller: false, newArrival: true, description: "Beautiful pearl bracelet for a classic look.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 25 },
+      { id: 16, name: "Chain Link Bracelet", category: "Bracelets", price: 899, originalPrice: 1199, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center"], rating: 4.4, bestSeller: false, newArrival: false, description: "Stylish chain link bracelet perfect for daily wear.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 30 },
+      { id: 17, name: "Gold Bangle Set", category: "Bangles", price: 1599, originalPrice: 1999, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center"], rating: 4.7, bestSeller: true, newArrival: false, description: "Beautiful set of gold bangles for festive occasions.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 12 },
+      { id: 18, name: "Silver Bangle", category: "Bangles", price: 999, originalPrice: 1299, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center"], rating: 4.5, bestSeller: false, newArrival: true, description: "Elegant silver bangle that matches any outfit.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 18 },
+      { id: 19, name: "Pearl Bangle", category: "Bangles", price: 799, originalPrice: null, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center"], rating: 4.4, bestSeller: false, newArrival: false, description: "Classic pearl bangle for a sophisticated look.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 22 },
+      { id: 20, name: "Designer Bangle", category: "Bangles", price: 1899, originalPrice: 2499, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center"], rating: 4.8, bestSeller: false, newArrival: true, description: "Designer bangle with intricate detailing.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 8 },
+      { id: 21, name: "Silver Anklet", category: "Anklets", price: 699, originalPrice: 899, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center"], rating: 4.5, bestSeller: false, newArrival: true, description: "Beautiful silver anklet for a trendy look.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 20 },
+      { id: 22, name: "Gold Anklet", category: "Anklets", price: 1099, originalPrice: 1399, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center"], rating: 4.6, bestSeller: true, newArrival: false, description: "Elegant gold anklet that adds sparkle to every step.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 15 },
+      { id: 23, name: "Pearl Anklet", category: "Anklets", price: 899, originalPrice: null, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center"], rating: 4.4, bestSeller: false, newArrival: false, description: "Classic pearl anklet for a feminine touch.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 18 },
+      { id: 24, name: "Chain Anklet", category: "Anklets", price: 599, originalPrice: 799, image: "https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1611591437281-460e7a1f6df4?w=400&h=400&fit=crop&crop=center"], rating: 4.3, bestSeller: false, newArrival: true, description: "Simple chain anklet for daily wear.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 25 },
+      { id: 25, name: "Gold Nose Pin", category: "Nose pins", price: 399, originalPrice: null, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center"], rating: 4.5, bestSeller: false, newArrival: true, description: "Beautiful gold nose pin for a traditional look.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 40 },
+      { id: 26, name: "Diamond Nose Pin", category: "Nose pins", price: 699, originalPrice: 899, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center"], rating: 4.7, bestSeller: true, newArrival: false, description: "Stunning diamond nose pin that adds a touch of elegance.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 15 },
+      { id: 27, name: "Pearl Nose Pin", category: "Nose pins", price: 299, originalPrice: null, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center"], rating: 4.3, bestSeller: false, newArrival: false, description: "Simple pearl nose pin for everyday elegance.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 35 },
+      { id: 28, name: "Designer Nose Pin", category: "Nose pins", price: 499, originalPrice: 699, image: "https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1602751584554-8a58d2d2e2d1?w=400&h=400&fit=crop&crop=center"], rating: 4.4, bestSeller: false, newArrival: true, description: "Designer nose pin with unique pattern.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 20 },
+      { id: 29, name: "Gold Dial Watch", category: "Watches", price: 2499, originalPrice: 2999, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center"], rating: 4.8, bestSeller: true, newArrival: false, description: "Elegant gold dial watch that combines style and functionality.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 10 },
+      { id: 30, name: "Silver Chain Watch", category: "Watches", price: 1999, originalPrice: 2499, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center"], rating: 4.6, bestSeller: false, newArrival: true, description: "Stylish silver chain watch for everyday wear.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 12 },
+      { id: 31, name: "Pearl Dial Watch", category: "Watches", price: 1799, originalPrice: null, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center"], rating: 4.5, bestSeller: false, newArrival: false, description: "Beautiful pearl dial watch with a classic design.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 8 },
+      { id: 32, name: "Designer Watch", category: "Watches", price: 2999, originalPrice: 3999, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center", images: ["https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop&crop=center"], rating: 4.9, bestSeller: false, newArrival: true, description: "Designer watch with premium finish and intricate detailing.", material: "Premium Stainless Steel", finish: "18K Gold Plated", antiTarnish: true, waterResistant: true, stock: 6 },
     ];
 
+    // ----- WhatsApp Order Function -----
+    function orderViaWhatsApp(productId, qty = 1) {
+      const product = allProducts.find(p => p.id === productId);
+      if (!product) return;
+      
+      const message = `Hi LENORRA, I would like to order:\n\n*${product.name}*\nPrice: ₹${product.price}\nQuantity: ${qty}\nTotal: ₹${product.price * qty}\n\nPlease confirm my order.`;
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    // ----- Product Detail Functions -----
+    function openProductDetail(productId) {
+      const product = allProducts.find(p => p.id === productId);
+      if (!product) return;
+      
+      const overlay = document.getElementById('productOverlay');
+      const content = document.getElementById('productDetailContent');
+      
+      const discount = product.originalPrice ? Math.round((1 - product.price/product.originalPrice)*100) : 0;
+      
+      const images = product.images && product.images.length > 0 ? product.images : [product.image];
+      const thumbnails = images.map((img, idx) => 
+        `<img src="${img}" alt="${product.name} view ${idx+1}" onclick="changeMainImage(this)" class="${idx === 0 ? 'active' : ''}" />`
+      ).join('');
+      
+      content.innerHTML = `
+        <div class="product-detail-images">
+          <div class="product-detail-main-image">
+            <img src="${images[0]}" alt="${product.name}" id="detailMainImage" />
+          </div>
+          <div class="product-detail-thumbnails">
+            ${thumbnails}
+          </div>
+        </div>
+        <div class="product-detail-info">
+          <div class="product-category">${product.category}</div>
+          <div class="product-name">${product.name}</div>
+          <div class="product-rating"><i class="fas fa-star"></i> ${product.rating} (${Math.floor(Math.random() * 50) + 10} reviews)</div>
+          <div class="product-price">
+            <span class="price-current">₹${product.price}</span>
+            ${product.originalPrice ? `<span class="price-original">₹${product.originalPrice}</span>` : ''}
+            ${discount > 0 ? `<span class="discount">${discount}% OFF</span>` : ''}
+          </div>
+          <div class="product-description">${product.description || 'Beautiful piece of jewellery crafted with premium materials.'}</div>
+          <div class="product-meta">
+            <span><strong>Material:</strong> ${product.material || 'Premium Stainless Steel'}</span>
+            <span><strong>Finish:</strong> ${product.finish || '18K Gold Plated'}</span>
+            <span><strong>Anti-Tarnish:</strong> ${product.antiTarnish ? '✅ Yes' : '❌ No'}</span>
+            <span><strong>Water Resistant:</strong> ${product.waterResistant ? '✅ Yes' : '❌ No'}</span>
+            <span><strong>Stock:</strong> ${product.stock || 'In Stock'}</span>
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-whatsapp" onclick="orderViaWhatsAppDetail()"><i class="fab fa-whatsapp"></i> Order on WhatsApp</button>
+            <button class="wishlist-btn" onclick="toggleWishlistDetail(${product.id})"><i class="fas fa-heart"></i></button>
+          </div>
+        </div>
+      `;
+      
+      window._detailProductId = productId;
+      window._detailQty = 1;
+      
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function orderViaWhatsAppDetail() {
+      const id = window._detailProductId;
+      const qty = window._detailQty || 1;
+      orderViaWhatsApp(id, qty);
+      closeProductDetail();
+    }
+    
+    function closeProductDetail() {
+      document.getElementById('productOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    function changeMainImage(el) {
+      const mainImg = document.getElementById('detailMainImage');
+      if (mainImg) {
+        mainImg.src = el.src;
+        document.querySelectorAll('.product-detail-thumbnails img').forEach(img => img.classList.remove('active'));
+        el.classList.add('active');
+      }
+    }
+    
+    function toggleWishlistDetail(productId) {
+      toggleWishlist(productId);
+    }
+
+    // ----- Render Functions -----
     function renderShopProducts(category = 'all') {
       const grid = document.getElementById('shopProductsGrid');
       if (!grid) return;
@@ -1545,7 +1766,7 @@
               <img src="${p.image}" alt="${p.name}" loading="lazy" />
               <div class="product-actions">
                 <button onclick="toggleWishlist(${p.id})" aria-label="Add to wishlist"><i class="far fa-heart"></i></button>
-                <button onclick="quickView(${p.id})" aria-label="Quick view"><i class="fas fa-eye"></i></button>
+                <button onclick="openProductDetail(${p.id})" aria-label="Quick view"><i class="fas fa-eye"></i></button>
               </div>
             </div>
             <div class="product-info">
@@ -1557,7 +1778,9 @@
                 ${p.originalPrice ? `<span class="price-original">₹${p.originalPrice}</span>` : ''}
                 ${discount > 0 ? `<span class="discount">${discount}%</span>` : ''}
               </div>
-              <button class="add-to-cart-btn" onclick="addToCart(${p.id})">Add to Cart</button>
+              <button class="btn btn-whatsapp" onclick="orderViaWhatsApp(${p.id})" style="width:100%;margin-top:0.5rem;padding:0.4rem;font-size:0.85rem;">
+                <i class="fab fa-whatsapp"></i> Order Now
+              </button>
             </div>
           </div>
         `;
@@ -1577,7 +1800,7 @@
               <img src="${p.image}" alt="${p.name}" loading="lazy" />
               <div class="product-actions">
                 <button onclick="toggleWishlist(${p.id})" aria-label="Add to wishlist"><i class="far fa-heart"></i></button>
-                <button onclick="quickView(${p.id})" aria-label="Quick view"><i class="fas fa-eye"></i></button>
+                <button onclick="openProductDetail(${p.id})" aria-label="Quick view"><i class="fas fa-eye"></i></button>
               </div>
             </div>
             <div class="product-info">
@@ -1589,7 +1812,9 @@
                 ${p.originalPrice ? `<span class="price-original">₹${p.originalPrice}</span>` : ''}
                 ${discount > 0 ? `<span class="discount">${discount}%</span>` : ''}
               </div>
-              <button class="add-to-cart-btn" onclick="addToCart(${p.id})">Add to Cart</button>
+              <button class="btn btn-whatsapp" onclick="orderViaWhatsApp(${p.id})" style="width:100%;margin-top:0.5rem;padding:0.35rem;font-size:0.8rem;">
+                <i class="fab fa-whatsapp"></i> Order Now
+              </button>
             </div>
           </div>
         `;
@@ -1607,7 +1832,7 @@
               <img src="${p.image}" alt="${p.name}" loading="lazy" />
               <div class="product-actions">
                 <button onclick="toggleWishlist(${p.id})" aria-label="Add to wishlist"><i class="far fa-heart"></i></button>
-                <button onclick="quickView(${p.id})" aria-label="Quick view"><i class="fas fa-eye"></i></button>
+                <button onclick="openProductDetail(${p.id})" aria-label="Quick view"><i class="fas fa-eye"></i></button>
               </div>
             </div>
             <div class="product-info">
@@ -1619,13 +1844,16 @@
                 ${p.originalPrice ? `<span class="price-original">₹${p.originalPrice}</span>` : ''}
                 ${discount > 0 ? `<span class="discount">${discount}%</span>` : ''}
               </div>
-              <button class="add-to-cart-btn" onclick="addToCart(${p.id})">Add to Cart</button>
+              <button class="btn btn-whatsapp" onclick="orderViaWhatsApp(${p.id})" style="width:100%;margin-top:0.5rem;padding:0.4rem;font-size:0.85rem;">
+                <i class="fab fa-whatsapp"></i> Order Now
+              </button>
             </div>
           </div>
         `;
       }).join('');
     }
 
+    // ----- Category Filters -----
     let currentCategory = 'all';
 
     function filterProducts(category) {
@@ -1649,6 +1877,7 @@
       });
     }
 
+    // ----- Shop Page Toggle -----
     function showShopPage(e) {
       if (e) e.preventDefault();
       document.getElementById('homeHero').style.display = 'none';
@@ -1684,13 +1913,14 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // ----- Cart & Wishlist -----
     function getCart() { return JSON.parse(localStorage.getItem('lenorra_cart')) || []; }
     function setCart(c) { localStorage.setItem('lenorra_cart', JSON.stringify(c)); updateCartBadge(); }
-    function addToCart(id) {
+    function addToCart(id, qty = 1) {
       let cart = getCart();
       const existing = cart.find(i => i.id === id);
-      if (existing) existing.qty = (existing.qty || 1) + 1;
-      else cart.push({ id, qty: 1 });
+      if (existing) existing.qty = (existing.qty || 0) + qty;
+      else cart.push({ id, qty });
       setCart(cart);
       alert('Added to cart!');
     }
@@ -1714,16 +1944,31 @@
       const badge = document.getElementById('wishlistCount');
       if (badge) badge.textContent = w.length;
     }
-    function quickView(id) {
-      alert('Quick view for product ID: ' + id + ' (full product page coming soon)');
-    }
 
+    // ----- Load Products -----
     function loadProducts() {
       filterProducts('all');
       updateCartBadge();
       updateWishlistBadge();
     }
 
+    // ----- Close overlay on click outside -----
+    document.addEventListener('click', function(e) {
+      const overlay = document.getElementById('productOverlay');
+      if (overlay.classList.contains('active')) {
+        const inner = overlay.querySelector('.product-overlay-inner');
+        if (!inner.contains(e.target) && !e.target.closest('.product-actions button')) {
+          closeProductDetail();
+        }
+      }
+    });
+
+    // ----- Close overlay on ESC -----
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeProductDetail();
+    });
+
+    // ----- DOM Ready -----
     document.addEventListener('DOMContentLoaded', function() {
       const hamburger = document.getElementById('hamburger');
       const closeNav = document.getElementById('closeNav');
