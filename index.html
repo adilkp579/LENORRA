@@ -30,6 +30,8 @@
     .btn.secondary:hover { background: #1e1b1a; color: #f8f4f0; border-color: #1e1b1a; }
     .btn-whatsapp { background: #25D366; color: #fff; }
     .btn-whatsapp:hover { background: #1da85c; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
+    .btn-cart-icon { background: transparent; border: 1px solid #d6cdc6; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; color: #1e1b1a; font-size: 1rem; }
+    .btn-cart-icon:hover { border-color: #b89a7b; background: #b89a7b; color: #fff; }
 
     /* ===== HEADER ===== */
     .header {
@@ -241,7 +243,7 @@
     }
 
     /* ============================================================
-       HERO - FULL SIZE BACKGROUND IMAGE (NO BLUR OVERLAY)
+       HERO - FULL SIZE BACKGROUND IMAGE
     ============================================================ */
     .hero {
       display: flex;
@@ -432,21 +434,8 @@
       color: #7a4f3a;
     }
     .shop-page .product-rating { color: #b89a7b; font-size: 0.8rem; margin: 0.2rem 0; }
-    .shop-page .add-to-cart-btn {
-      width: 100%;
-      margin-top: 0.8rem;
-      padding: 0.5rem;
-      border: 1px solid #1e1b1a;
-      background: transparent;
-      font-weight: 600;
-      border-radius: 40px;
-      transition: 0.2s;
-      cursor: pointer;
-    }
-    .shop-page .add-to-cart-btn:hover {
-      background: #1e1b1a;
-      color: #f8f4f0;
-    }
+    .shop-page .btn-whatsapp { width: 100%; margin-top: 0.5rem; padding: 0.4rem; font-size: 0.85rem; }
+    .shop-page .btn-cart-icon { margin-top: 0.5rem; }
     .shop-page .back-link {
       display: inline-block;
       margin-top: 2.5rem;
@@ -458,6 +447,303 @@
       color: #1e1b1a;
     }
     .shop-page .back-link i {
+      margin-right: 0.5rem;
+    }
+
+    /* ============================================================
+       CART PAGE
+    ============================================================ */
+    .cart-page {
+      min-height: 80vh;
+      padding: 3rem 0;
+      background: #f8f4f0;
+      border-radius: 30px;
+      margin: 0 1.5rem 2rem;
+    }
+    .cart-page .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .cart-page .section-title {
+      margin-bottom: 2rem;
+    }
+    .cart-empty {
+      text-align: center;
+      padding: 4rem 0;
+    }
+    .cart-empty i {
+      font-size: 4rem;
+      color: #d6cdc6;
+      margin-bottom: 1rem;
+    }
+    .cart-empty h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #1e1b1a;
+    }
+    .cart-empty p {
+      color: #7a6e68;
+      margin-top: 0.5rem;
+    }
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .cart-table th {
+      text-align: left;
+      padding: 1rem 0.5rem;
+      border-bottom: 1px solid #e8e0d8;
+      font-weight: 600;
+      color: #4a3f3a;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .cart-table td {
+      padding: 1rem 0.5rem;
+      border-bottom: 1px solid #e8e0d8;
+      vertical-align: middle;
+    }
+    .cart-table .cart-item-img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .cart-table .cart-item-name {
+      font-weight: 500;
+    }
+    .cart-table .cart-item-price {
+      font-weight: 600;
+    }
+    .cart-table .qty-btn {
+      background: transparent;
+      border: 1px solid #d6cdc6;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+    .cart-table .qty-btn:hover {
+      border-color: #b89a7b;
+      background: #b89a7b;
+      color: #fff;
+    }
+    .cart-table .qty-num {
+      padding: 0 0.8rem;
+      font-weight: 600;
+    }
+    .cart-table .remove-btn {
+      background: transparent;
+      border: none;
+      color: #9a8a80;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: 0.2s;
+    }
+    .cart-table .remove-btn:hover {
+      color: #d9534f;
+    }
+    .cart-summary {
+      background: #fff;
+      padding: 1.5rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .cart-summary .total-label {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .cart-summary .total-amount {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1e1b1a;
+    }
+    .cart-summary .btn {
+      padding: 0.8rem 2.5rem;
+    }
+    .cart-page .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-weight: 500;
+      color: #7a6e68;
+      transition: 0.2s;
+    }
+    .cart-page .back-link:hover {
+      color: #1e1b1a;
+    }
+    .cart-page .back-link i {
+      margin-right: 0.5rem;
+    }
+
+    /* ============================================================
+       WISHLIST PAGE
+    ============================================================ */
+    .wishlist-page {
+      min-height: 80vh;
+      padding: 3rem 0;
+      background: #f8f4f0;
+      border-radius: 30px;
+      margin: 0 1.5rem 2rem;
+    }
+    .wishlist-page .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .wishlist-page .section-title {
+      margin-bottom: 2rem;
+    }
+    .wishlist-empty {
+      text-align: center;
+      padding: 4rem 0;
+    }
+    .wishlist-empty i {
+      font-size: 4rem;
+      color: #d6cdc6;
+      margin-bottom: 1rem;
+    }
+    .wishlist-empty h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #1e1b1a;
+    }
+    .wishlist-empty p {
+      color: #7a6e68;
+      margin-top: 0.5rem;
+    }
+    .wishlist-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .wishlist-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: 0.25s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      position: relative;
+    }
+    .wishlist-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
+    }
+    .wishlist-card .product-image {
+      height: 280px;
+      background: #ede8e3;
+      position: relative;
+      overflow: hidden;
+    }
+    .wishlist-card .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .wishlist-card .product-actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .wishlist-card .product-actions button {
+      background: #fff;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: 0.2s;
+    }
+    .wishlist-card .product-actions button:hover {
+      background: #b89a7b;
+      color: #fff;
+    }
+    .wishlist-card .product-info {
+      padding: 1rem 1rem 1.2rem;
+    }
+    .wishlist-card .product-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .wishlist-card .product-category {
+      font-size: 0.8rem;
+      color: #7a6e68;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .wishlist-card .product-price {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      margin-top: 0.3rem;
+      flex-wrap: wrap;
+    }
+    .wishlist-card .price-current { font-weight: 700; font-size: 1.1rem; }
+    .wishlist-card .price-original { text-decoration: line-through; color: #9a8a80; font-size: 0.9rem; }
+    .wishlist-card .discount {
+      background: #e8d9cf;
+      padding: 0.1rem 0.6rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #7a4f3a;
+    }
+    .wishlist-card .product-rating { color: #b89a7b; font-size: 0.8rem; margin: 0.2rem 0; }
+    .wishlist-card .btn-whatsapp {
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 0.4rem;
+      font-size: 0.85rem;
+    }
+    .wishlist-card .btn-cart-icon { margin-top: 0.5rem; }
+    .wishlist-card .remove-wishlist-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: 0.2s;
+      color: #d9534f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wishlist-card .remove-wishlist-btn:hover {
+      background: #d9534f;
+      color: #fff;
+    }
+    .wishlist-page .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-weight: 500;
+      color: #7a6e68;
+      transition: 0.2s;
+    }
+    .wishlist-page .back-link:hover {
+      color: #1e1b1a;
+    }
+    .wishlist-page .back-link i {
       margin-right: 0.5rem;
     }
 
@@ -815,22 +1101,9 @@
       font-size: 0.75rem;
       margin: 0.1rem 0;
     }
-    .category-products-row .product-card .add-to-cart-btn {
-      width: 100%;
-      margin-top: 0.5rem;
-      padding: 0.4rem;
-      border: 1px solid #1e1b1a;
-      background: transparent;
-      font-weight: 600;
-      border-radius: 40px;
-      transition: 0.2s;
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
-    .category-products-row .product-card .add-to-cart-btn:hover {
-      background: #1e1b1a;
-      color: #f8f4f0;
-    }
+    .category-products-row .product-card .action-row { display: flex; gap: 0.5rem; align-items: center; margin-top: 0.5rem; }
+    .category-products-row .product-card .btn-whatsapp { flex: 1; padding: 0.4rem; font-size: 0.8rem; margin: 0; }
+    .category-products-row .product-card .btn-cart-icon { flex-shrink: 0; width: 38px; height: 38px; }
 
     .products-section { padding: 4rem 0; }
     .product-grid {
@@ -917,21 +1190,9 @@
       color: #7a4f3a;
     }
     .product-rating { color: #b89a7b; font-size: 0.8rem; margin: 0.2rem 0; }
-    .add-to-cart-btn {
-      width: 100%;
-      margin-top: 0.8rem;
-      padding: 0.5rem;
-      border: 1px solid #1e1b1a;
-      background: transparent;
-      font-weight: 600;
-      border-radius: 40px;
-      transition: 0.2s;
-      cursor: pointer;
-    }
-    .add-to-cart-btn:hover {
-      background: #1e1b1a;
-      color: #f8f4f0;
-    }
+    .action-row { display: flex; gap: 0.5rem; align-items: center; margin-top: 0.5rem; }
+    .btn-whatsapp { flex: 1; padding: 0.4rem; font-size: 0.85rem; margin: 0; }
+    .btn-cart-icon { flex-shrink: 0; width: 40px; height: 40px; }
 
     .best-sellers-scroll .product-grid,
     .new-arrivals-scroll .product-grid {
@@ -1113,6 +1374,7 @@
     @media (max-width: 1024px) {
       .product-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
       .shop-page .product-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+      .wishlist-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
       .ig-grid { grid-template-columns: repeat(3, 1fr); }
       .review-grid { grid-template-columns: repeat(2, 1fr); }
       .hero-content h1 { font-size: 3.5rem; }
@@ -1173,14 +1435,64 @@
       .shop-page .product-info { padding: 0.7rem; }
       .shop-page .product-name { font-size: 0.9rem; }
       .shop-page .price-current { font-size: 1rem; }
-      .shop-page .add-to-cart-btn { font-size: 0.8rem; padding: 0.45rem; margin-top: 0.6rem; }
+      .shop-page .btn-whatsapp { font-size: 0.8rem; padding: 0.4rem; }
+      .shop-page .btn-cart-icon { width: 36px; height: 36px; }
       .shop-page .product-category { font-size: 0.7rem; }
       .shop-page .product-rating { font-size: 0.75rem; }
       .shop-page .product-actions button { width: 30px; height: 30px; font-size: 0.8rem; }
       .shop-page .discount { font-size: 0.65rem; padding: 0.05rem 0.4rem; }
       .shop-page .price-original { font-size: 0.8rem; }
       .shop-page .section-title { font-size: 1.8rem; margin-bottom: 1.5rem; }
-      
+
+      /* Cart Page Mobile */
+      .cart-page {
+        margin: 0 0.8rem 1.5rem;
+        padding: 1.5rem 0;
+        border-radius: 20px;
+      }
+      .cart-page .container { padding: 0 0.8rem; }
+      .cart-table thead { display: none; }
+      .cart-table tbody tr {
+        display: block;
+        padding: 1rem 0;
+        border-bottom: 1px solid #e8e0d8;
+      }
+      .cart-table tbody td {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.3rem 0;
+        border: none;
+        flex-wrap: wrap;
+      }
+      .cart-table tbody td:first-child { justify-content: flex-start; }
+      .cart-table .cart-item-img { width: 70px; height: 70px; }
+      .cart-table .cart-item-name { font-weight: 600; }
+      .cart-table .cart-item-price { font-weight: 600; }
+      .cart-summary {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        padding: 1.2rem;
+      }
+      .cart-summary .btn { width: 100%; }
+
+      /* Wishlist Page Mobile */
+      .wishlist-page {
+        margin: 0 0.8rem 1.5rem;
+        padding: 1.5rem 0;
+        border-radius: 20px;
+      }
+      .wishlist-page .container { padding: 0 0.8rem; }
+      .wishlist-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+      }
+      .wishlist-card .product-image { height: 200px; }
+      .wishlist-card .product-info { padding: 0.7rem; }
+      .wishlist-card .product-name { font-size: 0.9rem; }
+      .wishlist-card .price-current { font-size: 1rem; }
+
       .shop-category-filter {
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -1228,13 +1540,16 @@
       .category-products-row .product-card .product-info { padding: 0.5rem; }
       .category-products-row .product-card .product-name { font-size: 0.8rem; }
       .category-products-row .product-card .price-current { font-size: 0.85rem; }
+      .category-products-row .product-card .btn-whatsapp { font-size: 0.7rem; padding: 0.3rem; }
+      .category-products-row .product-card .btn-cart-icon { width: 32px; height: 32px; }
 
       .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
       .product-image { height: 180px; }
       .product-info { padding: 0.6rem; }
       .product-name { font-size: 0.85rem; }
       .price-current { font-size: 0.95rem; }
-      .add-to-cart-btn { font-size: 0.75rem; padding: 0.4rem; }
+      .btn-whatsapp { font-size: 0.75rem; padding: 0.35rem; }
+      .btn-cart-icon { width: 36px; height: 36px; }
 
       .best-sellers-scroll .product-grid,
       .new-arrivals-scroll .product-grid {
@@ -1276,6 +1591,8 @@
       .container { padding: 0 0.8rem; }
       .whatsapp-float { width: 44px; height: 44px; font-size: 1.5rem; bottom: 1rem; right: 1rem; }
       .shop-page .back-link { font-size: 0.9rem; margin-top: 1.5rem; }
+      .cart-page .back-link { font-size: 0.9rem; margin-top: 1rem; }
+      .wishlist-page .back-link { font-size: 0.9rem; margin-top: 1rem; }
 
       /* Product Overlay Mobile */
       .product-overlay { padding: 1rem; }
@@ -1316,13 +1633,44 @@
       .shop-page .product-info { padding: 0.5rem 0.5rem 0.7rem; }
       .shop-page .product-name { font-size: 0.8rem; }
       .shop-page .price-current { font-size: 0.9rem; }
-      .shop-page .add-to-cart-btn { font-size: 0.7rem; padding: 0.35rem; margin-top: 0.5rem; }
+      .shop-page .btn-whatsapp { font-size: 0.7rem; padding: 0.35rem; }
+      .shop-page .btn-cart-icon { width: 32px; height: 32px; }
       .shop-page .product-category { font-size: 0.65rem; }
       .shop-page .product-rating { font-size: 0.65rem; }
       .shop-page .product-actions button { width: 26px; height: 26px; font-size: 0.7rem; }
       .shop-page .discount { font-size: 0.6rem; padding: 0.05rem 0.35rem; }
       .shop-page .price-original { font-size: 0.75rem; }
       .shop-page .section-title { font-size: 1.5rem; margin-bottom: 1rem; }
+
+      /* Cart Page Mobile Small */
+      .cart-page {
+        margin: 0 0.3rem 1rem;
+        padding: 1rem 0;
+        border-radius: 14px;
+      }
+      .cart-page .container { padding: 0 0.3rem; }
+      .cart-table .cart-item-img { width: 60px; height: 60px; }
+      .cart-table .cart-item-name { font-size: 0.85rem; }
+      .cart-table .cart-item-price { font-size: 0.9rem; }
+      .cart-summary .total-amount { font-size: 1.5rem; }
+      .cart-summary .btn { padding: 0.6rem 1.5rem; font-size: 0.85rem; }
+
+      /* Wishlist Page Mobile Small */
+      .wishlist-page {
+        margin: 0 0.3rem 1rem;
+        padding: 1rem 0;
+        border-radius: 14px;
+      }
+      .wishlist-page .container { padding: 0 0.3rem; }
+      .wishlist-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+      }
+      .wishlist-card .product-image { height: 170px; }
+      .wishlist-card .product-info { padding: 0.5rem 0.5rem 0.7rem; }
+      .wishlist-card .product-name { font-size: 0.8rem; }
+      .wishlist-card .price-current { font-size: 0.9rem; }
+
       .shop-category-filter .filter-btn { font-size: 0.7rem; padding: 0.25rem 0.7rem; }
       .shop-page .back-link { font-size: 0.85rem; margin-top: 1rem; }
 
@@ -1332,6 +1680,8 @@
       .category-products-row .product-card .product-info { padding: 0.4rem; }
       .category-products-row .product-card .product-name { font-size: 0.75rem; }
       .category-products-row .product-card .price-current { font-size: 0.8rem; }
+      .category-products-row .product-card .btn-whatsapp { font-size: 0.65rem; padding: 0.25rem; }
+      .category-products-row .product-card .btn-cart-icon { width: 28px; height: 28px; }
 
       .product-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
       .product-image { height: 150px; }
@@ -1339,7 +1689,8 @@
       .product-name { font-size: 0.8rem; }
       .price-current { font-size: 0.9rem; }
       .price-original { font-size: 0.75rem; }
-      .add-to-cart-btn { font-size: 0.7rem; padding: 0.35rem; }
+      .btn-whatsapp { font-size: 0.7rem; padding: 0.3rem; }
+      .btn-cart-icon { width: 32px; height: 32px; }
       .discount { font-size: 0.6rem; padding: 0.05rem 0.35rem; }
 
       .best-sellers-scroll .product-grid .product-card,
@@ -1390,8 +1741,17 @@
       .shop-page .product-image { height: 150px; }
       .shop-page .product-name { font-size: 0.75rem; }
       .shop-page .price-current { font-size: 0.85rem; }
-      .shop-page .add-to-cart-btn { font-size: 0.65rem; padding: 0.25rem; }
+      .shop-page .btn-whatsapp { font-size: 0.6rem; padding: 0.25rem; }
+      .shop-page .btn-cart-icon { width: 28px; height: 28px; }
       .shop-category-filter .filter-btn { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
+
+      .cart-table .cart-item-img { width: 50px; height: 50px; }
+      .cart-summary .total-amount { font-size: 1.3rem; }
+
+      .wishlist-grid { grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+      .wishlist-card .product-image { height: 150px; }
+      .wishlist-card .product-name { font-size: 0.75rem; }
+      .wishlist-card .price-current { font-size: 0.85rem; }
 
       .category-nav .cat-item { padding: 0.2rem 0.5rem; font-size: 0.65rem; }
       .category-products-row .product-card { width: 140px; }
@@ -1402,7 +1762,8 @@
       .product-name { font-size: 0.7rem; }
       .price-current { font-size: 0.8rem; }
       .price-original { font-size: 0.65rem; }
-      .add-to-cart-btn { font-size: 0.6rem; padding: 0.25rem; }
+      .btn-whatsapp { font-size: 0.6rem; padding: 0.25rem; }
+      .btn-cart-icon { width: 28px; height: 28px; }
 
       .best-sellers-scroll .product-grid .product-card,
       .new-arrivals-scroll .product-grid .product-card {
@@ -1434,8 +1795,8 @@
       </nav>
       <div class="header-actions">
         <button class="icon-btn search-toggle" aria-label="Search"><i class="fas fa-search"></i></button>
-        <a href="wishlist.html" class="icon-btn" aria-label="Wishlist"><i class="fas fa-heart"></i><span class="badge wishlist-count" id="wishlistCount">0</span></a>
-        <a href="cart.html" class="icon-btn" aria-label="Shopping bag"><i class="fas fa-shopping-bag"></i><span class="badge cart-count" id="cartCount">0</span></a>
+        <a href="#" class="icon-btn" aria-label="Wishlist" onclick="showWishlistPage(event)"><i class="fas fa-heart"></i><span class="badge wishlist-count" id="wishlistCount">0</span></a>
+        <a href="#" class="icon-btn" aria-label="Shopping bag" onclick="showCartPage(event)"><i class="fas fa-shopping-bag"></i><span class="badge cart-count" id="cartCount">0</span></a>
         <button class="icon-btn account-toggle" aria-label="Account"><i class="fas fa-user"></i></button>
         <button class="icon-btn menu-toggle" id="hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
       </div>
@@ -1449,8 +1810,8 @@
         <li><a href="#best-sellers">Best Sellers</a></li>
         <li><a href="#collections">Collections</a></li>
         <li><a href="about.html">About Us</a></li>
-        <li><a href="wishlist.html"><i class="fas fa-heart"></i> Wishlist</a></li>
-        <li><a href="cart.html"><i class="fas fa-shopping-bag"></i> Cart</a></li>
+        <li><a href="#" onclick="showWishlistPage(event)"><i class="fas fa-heart"></i> Wishlist</a></li>
+        <li><a href="#" onclick="showCartPage(event)"><i class="fas fa-shopping-bag"></i> Cart</a></li>
       </ul>
     </div>
   </header>
@@ -1466,7 +1827,7 @@
   </div>
 
   <main>
-    <!-- HERO - FULL SIZE BACKGROUND IMAGE -->
+    <!-- HERO -->
     <section class="hero" id="homeHero" aria-label="Featured collection">
       <div class="hero-content">
         <h1>Jewellery That Lasts Beyond the Moment</h1>
@@ -1504,13 +1865,38 @@
       </div>
     </section>
 
+    <!-- CART PAGE -->
+    <section class="cart-page" id="cartPage" style="display:none;">
+      <div class="container">
+        <h2 class="section-title">Shopping Cart</h2>
+        <div id="cartContent"></div>
+        <div style="text-align: center; margin-top: 1.5rem;">
+          <a href="index.html" class="back-link" onclick="hideCartPage(event)">
+            <i class="fas fa-arrow-left"></i> Continue Shopping
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WISHLIST PAGE -->
+    <section class="wishlist-page" id="wishlistPage" style="display:none;">
+      <div class="container">
+        <h2 class="section-title">My Wishlist</h2>
+        <div id="wishlistContent"></div>
+        <div style="text-align: center; margin-top: 1.5rem;">
+          <a href="index.html" class="back-link" onclick="hideWishlistPage(event)">
+            <i class="fas fa-arrow-left"></i> Continue Shopping
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- SHOP BY CATEGORY -->
     <section class="categories" id="categoriesSection" aria-label="Shop by category">
       <div class="container">
         <h2 class="section-title">Shop by Category</h2>
         <div class="category-nav" id="categoryNav">
           <button class="cat-item active" data-category="all"><i class="fas fa-gem"></i> All</button>
-       <!---   <button class="cat-item" data-category="Necklaces"><i class="fas fa-gem"></i> Necklaces</button>-->
           <button class="cat-item" data-category="Rings"><i class="fas fa-gem"></i> Rings</button>
           <button class="cat-item" data-category="Bracelets"><i class="fas fa-gem"></i> Bracelets</button>
           <button class="cat-item" data-category="Chains"><i class="fas fa-gem"></i> Chains</button>
@@ -1667,22 +2053,239 @@
     function orderViaWhatsApp(productId, qty = 1) {
       const product = allProducts.find(p => p.id === productId);
       if (!product) return;
-      
       const message = `Hi LENORRA, I would like to order:\n\n*${product.name}*\nPrice: ₹${product.price}\nQuantity: ${qty}\nTotal: ₹${product.price * qty}\n\nPlease confirm my order.`;
       const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
       window.open(url, '_blank');
+    }
+
+    // ----- Cart Functions -----
+    function getCart() { return JSON.parse(localStorage.getItem('lenorra_cart')) || []; }
+    function setCart(c) { localStorage.setItem('lenorra_cart', JSON.stringify(c)); updateCartBadge(); renderCartPage(); }
+
+    function addToCart(id, qty = 1) {
+      let cart = getCart();
+      const existing = cart.find(i => i.id === id);
+      if (existing) existing.qty = (existing.qty || 0) + qty;
+      else cart.push({ id, qty });
+      setCart(cart);
+      // Show a subtle feedback without alert
+      const btn = document.querySelector(`[onclick*="addToCart(${id})"]`);
+      if (btn) {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i>';
+        btn.style.borderColor = '#25D366';
+        btn.style.color = '#25D366';
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.style.borderColor = '';
+          btn.style.color = '';
+        }, 1000);
+      } else {
+        alert('Added to cart!');
+      }
+    }
+
+    function updateCartBadge() {
+      const cart = getCart();
+      const total = cart.reduce((s, i) => s + (i.qty || 0), 0);
+      const badge = document.getElementById('cartCount');
+      if (badge) badge.textContent = total;
+    }
+
+    function removeFromCart(id) {
+      let cart = getCart();
+      cart = cart.filter(i => i.id !== id);
+      setCart(cart);
+    }
+
+    function updateCartQty(id, delta) {
+      let cart = getCart();
+      const item = cart.find(i => i.id === id);
+      if (item) {
+        item.qty = Math.max(1, (item.qty || 0) + delta);
+        setCart(cart);
+      }
+    }
+
+    function renderCartPage() {
+      const container = document.getElementById('cartContent');
+      if (!container) return;
+      const cart = getCart();
+      
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="cart-empty">
+            <i class="fas fa-shopping-bag"></i>
+            <h3>Your cart is empty</h3>
+            <p>Start shopping to add items to your cart.</p>
+            <a href="#" onclick="hideCartPage(event); return false;" class="btn primary" style="margin-top:1.5rem;">Continue Shopping</a>
+          </div>
+        `;
+        return;
+      }
+
+      let subtotal = 0;
+      let itemsHtml = cart.map(item => {
+        const product = allProducts.find(p => p.id === item.id);
+        if (!product) return '';
+        const total = product.price * item.qty;
+        subtotal += total;
+        return `
+          <tr>
+            <td><img src="${product.image}" alt="${product.name}" class="cart-item-img" /></td>
+            <td><span class="cart-item-name">${product.name}</span></td>
+            <td><span class="cart-item-price">₹${product.price}</span></td>
+            <td>
+              <button class="qty-btn" onclick="updateCartQty(${product.id}, -1)"><i class="fas fa-minus"></i></button>
+              <span class="qty-num">${item.qty}</span>
+              <button class="qty-btn" onclick="updateCartQty(${product.id}, 1)"><i class="fas fa-plus"></i></button>
+            </td>
+            <td><span class="cart-item-price">₹${total}</span></td>
+            <td><button class="remove-btn" onclick="removeFromCart(${product.id})"><i class="fas fa-trash-alt"></i></button></td>
+          </tr>
+        `;
+      }).join('');
+
+      const shipping = subtotal > 0 ? 99 : 0;
+      const total = subtotal + shipping;
+
+      container.innerHTML = `
+        <div style="overflow-x:auto;">
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              ${itemsHtml}
+            </tbody>
+          </table>
+        </div>
+        <div class="cart-summary">
+          <div>
+            <span class="total-label">Subtotal:</span>
+            <span class="total-amount" style="font-size:1.2rem;font-weight:600;">₹${subtotal}</span>
+            <div style="font-size:0.85rem;color:#7a6e68;margin-top:0.2rem;">Shipping: ₹${shipping}</div>
+          </div>
+          <div style="text-align:right;">
+            <div><span class="total-label">Total:</span> <span class="total-amount">₹${total}</span></div>
+            <a href="#" class="btn btn-whatsapp" onclick="orderCartViaWhatsApp(event)" style="margin-top:0.8rem;display:inline-block;width:auto;padding:0.7rem 2rem;">
+              <i class="fab fa-whatsapp"></i> Order Now
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    function orderCartViaWhatsApp(e) {
+      e.preventDefault();
+      const cart = getCart();
+      if (cart.length === 0) return;
+      let message = "Hi LENORRA, I would like to order:\n\n";
+      let total = 0;
+      cart.forEach(item => {
+        const product = allProducts.find(p => p.id === item.id);
+        if (product) {
+          message += `*${product.name}* × ${item.qty} = ₹${product.price * item.qty}\n`;
+          total += product.price * item.qty;
+        }
+      });
+      message += `\nTotal: ₹${total + 99}\n(Shipping: ₹99)`;
+      message += `\n\nPlease confirm my order.`;
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    // ----- Wishlist Functions -----
+    function getWishlist() { return JSON.parse(localStorage.getItem('lenorra_wishlist')) || []; }
+    function setWishlist(w) { localStorage.setItem('lenorra_wishlist', JSON.stringify(w)); updateWishlistBadge(); renderWishlistPage(); }
+
+    function toggleWishlist(id) {
+      let w = getWishlist();
+      if (w.includes(id)) w = w.filter(i => i !== id);
+      else w.push(id);
+      setWishlist(w);
+      alert('Wishlist updated');
+    }
+
+    function removeFromWishlist(id) {
+      let w = getWishlist();
+      w = w.filter(i => i !== id);
+      setWishlist(w);
+    }
+
+    function updateWishlistBadge() {
+      const w = getWishlist();
+      const badge = document.getElementById('wishlistCount');
+      if (badge) badge.textContent = w.length;
+    }
+
+    function renderWishlistPage() {
+      const container = document.getElementById('wishlistContent');
+      if (!container) return;
+      const wishlist = getWishlist();
+      
+      if (wishlist.length === 0) {
+        container.innerHTML = `
+          <div class="wishlist-empty">
+            <i class="fas fa-heart"></i>
+            <h3>Your wishlist is empty</h3>
+            <p>Start adding your favourite pieces to your wishlist.</p>
+            <a href="#" onclick="hideWishlistPage(event); return false;" class="btn primary" style="margin-top:1.5rem;">Continue Shopping</a>
+          </div>
+        `;
+        return;
+      }
+
+      const products = wishlist.map(id => allProducts.find(p => p.id === id)).filter(p => p);
+      
+      container.innerHTML = `
+        <div class="wishlist-grid">
+          ${products.map(p => {
+            const discount = p.originalPrice ? Math.round((1 - p.price/p.originalPrice)*100) : 0;
+            return `
+              <div class="wishlist-card">
+                <button class="remove-wishlist-btn" onclick="removeFromWishlist(${p.id})"><i class="fas fa-times"></i></button>
+                <div class="product-image">
+                  <img src="${p.image}" alt="${p.name}" loading="lazy" />
+                  <div class="product-actions">
+                    <button onclick="openProductDetail(${p.id})" aria-label="Quick view"><i class="fas fa-eye"></i></button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-category">${p.category}</div>
+                  <div class="product-name">${p.name}</div>
+                  <div class="product-rating"><i class="fas fa-star"></i> ${p.rating}</div>
+                  <div class="product-price">
+                    <span class="price-current">₹${p.price}</span>
+                    ${p.originalPrice ? `<span class="price-original">₹${p.originalPrice}</span>` : ''}
+                    ${discount > 0 ? `<span class="discount">${discount}%</span>` : ''}
+                  </div>
+                  <div class="action-row">
+                    <button class="btn btn-whatsapp" onclick="orderViaWhatsApp(${p.id})"><i class="fab fa-whatsapp"></i> Order Now</button>
+                    <button class="btn-cart-icon" onclick="addToCart(${p.id})" title="Add to Cart"><i class="fas fa-shopping-bag"></i></button>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
     }
 
     // ----- Product Detail Functions -----
     function openProductDetail(productId) {
       const product = allProducts.find(p => p.id === productId);
       if (!product) return;
-      
       const overlay = document.getElementById('productOverlay');
       const content = document.getElementById('productDetailContent');
-      
       const discount = product.originalPrice ? Math.round((1 - product.price/product.originalPrice)*100) : 0;
-      
       const images = product.images && product.images.length > 0 ? product.images : [product.image];
       const thumbnails = images.map((img, idx) => 
         `<img src="${img}" alt="${product.name} view ${idx+1}" onclick="changeMainImage(this)" class="${idx === 0 ? 'active' : ''}" />`
@@ -1717,6 +2320,7 @@
           <div class="action-buttons">
             <button class="btn btn-whatsapp" onclick="orderViaWhatsAppDetail()"><i class="fab fa-whatsapp"></i> Order on WhatsApp</button>
             <button class="wishlist-btn" onclick="toggleWishlistDetail(${product.id})"><i class="fas fa-heart"></i></button>
+            <button class="btn-cart-icon" onclick="addToCartDetail()" style="width:50px;height:50px;border-radius:50%;"><i class="fas fa-shopping-bag"></i></button>
           </div>
         </div>
       `;
@@ -1726,6 +2330,12 @@
       
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
+    }
+    
+    function addToCartDetail() {
+      const id = window._detailProductId;
+      const qty = window._detailQty || 1;
+      addToCart(id, qty);
     }
     
     function orderViaWhatsAppDetail() {
@@ -1778,9 +2388,10 @@
                 ${p.originalPrice ? `<span class="price-original">₹${p.originalPrice}</span>` : ''}
                 ${discount > 0 ? `<span class="discount">${discount}%</span>` : ''}
               </div>
-              <button class="btn btn-whatsapp" onclick="orderViaWhatsApp(${p.id})" style="width:100%;margin-top:0.5rem;padding:0.4rem;font-size:0.85rem;">
-                <i class="fab fa-whatsapp"></i> Order Now
-              </button>
+              <div class="action-row">
+                <button class="btn btn-whatsapp" onclick="orderViaWhatsApp(${p.id})"><i class="fab fa-whatsapp"></i> Order Now</button>
+                <button class="btn-cart-icon" onclick="addToCart(${p.id})" title="Add to Cart"><i class="fas fa-shopping-bag"></i></button>
+              </div>
             </div>
           </div>
         `;
@@ -1812,9 +2423,10 @@
                 ${p.originalPrice ? `<span class="price-original">₹${p.originalPrice}</span>` : ''}
                 ${discount > 0 ? `<span class="discount">${discount}%</span>` : ''}
               </div>
-              <button class="btn btn-whatsapp" onclick="orderViaWhatsApp(${p.id})" style="width:100%;margin-top:0.5rem;padding:0.35rem;font-size:0.8rem;">
-                <i class="fab fa-whatsapp"></i> Order Now
-              </button>
+              <div class="action-row">
+                <button class="btn btn-whatsapp" onclick="orderViaWhatsApp(${p.id})"><i class="fab fa-whatsapp"></i> Order Now</button>
+                <button class="btn-cart-icon" onclick="addToCart(${p.id})" title="Add to Cart"><i class="fas fa-shopping-bag"></i></button>
+              </div>
             </div>
           </div>
         `;
@@ -1844,9 +2456,10 @@
                 ${p.originalPrice ? `<span class="price-original">₹${p.originalPrice}</span>` : ''}
                 ${discount > 0 ? `<span class="discount">${discount}%</span>` : ''}
               </div>
-              <button class="btn btn-whatsapp" onclick="orderViaWhatsApp(${p.id})" style="width:100%;margin-top:0.5rem;padding:0.4rem;font-size:0.85rem;">
-                <i class="fab fa-whatsapp"></i> Order Now
-              </button>
+              <div class="action-row">
+                <button class="btn btn-whatsapp" onclick="orderViaWhatsApp(${p.id})"><i class="fab fa-whatsapp"></i> Order Now</button>
+                <button class="btn-cart-icon" onclick="addToCart(${p.id})" title="Add to Cart"><i class="fas fa-shopping-bag"></i></button>
+              </div>
             </div>
           </div>
         `;
@@ -1877,7 +2490,7 @@
       });
     }
 
-    // ----- Shop Page Toggle -----
+    // ----- Page Toggle Functions -----
     function showShopPage(e) {
       if (e) e.preventDefault();
       document.getElementById('homeHero').style.display = 'none';
@@ -1889,6 +2502,8 @@
       document.querySelector('.reviews').style.display = 'none';
       document.querySelector('.instagram-gallery').style.display = 'none';
       document.querySelector('.newsletter').style.display = 'none';
+      document.getElementById('cartPage').style.display = 'none';
+      document.getElementById('wishlistPage').style.display = 'none';
       document.getElementById('shopPage').style.display = 'block';
       renderShopProducts('all');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1908,41 +2523,87 @@
       document.querySelector('.instagram-gallery').style.display = 'block';
       document.querySelector('.newsletter').style.display = 'block';
       document.getElementById('shopPage').style.display = 'none';
+      document.getElementById('cartPage').style.display = 'none';
+      document.getElementById('wishlistPage').style.display = 'none';
       document.querySelectorAll('.nav-primary a').forEach(a => a.classList.remove('active'));
       document.querySelector('.nav-primary a[href="index.html"]')?.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ----- Cart & Wishlist -----
-    function getCart() { return JSON.parse(localStorage.getItem('lenorra_cart')) || []; }
-    function setCart(c) { localStorage.setItem('lenorra_cart', JSON.stringify(c)); updateCartBadge(); }
-    function addToCart(id, qty = 1) {
-      let cart = getCart();
-      const existing = cart.find(i => i.id === id);
-      if (existing) existing.qty = (existing.qty || 0) + qty;
-      else cart.push({ id, qty });
-      setCart(cart);
-      alert('Added to cart!');
+    function showCartPage(e) {
+      if (e) e.preventDefault();
+      document.getElementById('homeHero').style.display = 'none';
+      document.getElementById('categoriesSection').style.display = 'none';
+      document.getElementById('best-sellers').style.display = 'none';
+      document.getElementById('new-arrivals').style.display = 'none';
+      document.querySelector('.promise').style.display = 'none';
+      document.querySelector('.promo-banner').style.display = 'none';
+      document.querySelector('.reviews').style.display = 'none';
+      document.querySelector('.instagram-gallery').style.display = 'none';
+      document.querySelector('.newsletter').style.display = 'none';
+      document.getElementById('shopPage').style.display = 'none';
+      document.getElementById('wishlistPage').style.display = 'none';
+      document.getElementById('cartPage').style.display = 'block';
+      renderCartPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.querySelectorAll('.nav-primary a').forEach(a => a.classList.remove('active'));
     }
-    function updateCartBadge() {
-      const cart = getCart();
-      const total = cart.reduce((s, i) => s + (i.qty || 0), 0);
-      const badge = document.getElementById('cartCount');
-      if (badge) badge.textContent = total;
+
+    function hideCartPage(e) {
+      if (e) e.preventDefault();
+      document.getElementById('homeHero').style.display = 'flex';
+      document.getElementById('categoriesSection').style.display = 'block';
+      document.getElementById('best-sellers').style.display = 'block';
+      document.getElementById('new-arrivals').style.display = 'block';
+      document.querySelector('.promise').style.display = 'block';
+      document.querySelector('.promo-banner').style.display = 'block';
+      document.querySelector('.reviews').style.display = 'block';
+      document.querySelector('.instagram-gallery').style.display = 'block';
+      document.querySelector('.newsletter').style.display = 'block';
+      document.getElementById('shopPage').style.display = 'none';
+      document.getElementById('cartPage').style.display = 'none';
+      document.getElementById('wishlistPage').style.display = 'none';
+      document.querySelectorAll('.nav-primary a').forEach(a => a.classList.remove('active'));
+      document.querySelector('.nav-primary a[href="index.html"]')?.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    function getWishlist() { return JSON.parse(localStorage.getItem('lenorra_wishlist')) || []; }
-    function setWishlist(w) { localStorage.setItem('lenorra_wishlist', JSON.stringify(w)); updateWishlistBadge(); }
-    function toggleWishlist(id) {
-      let w = getWishlist();
-      if (w.includes(id)) w = w.filter(i => i !== id);
-      else w.push(id);
-      setWishlist(w);
-      alert('Wishlist updated');
+
+    function showWishlistPage(e) {
+      if (e) e.preventDefault();
+      document.getElementById('homeHero').style.display = 'none';
+      document.getElementById('categoriesSection').style.display = 'none';
+      document.getElementById('best-sellers').style.display = 'none';
+      document.getElementById('new-arrivals').style.display = 'none';
+      document.querySelector('.promise').style.display = 'none';
+      document.querySelector('.promo-banner').style.display = 'none';
+      document.querySelector('.reviews').style.display = 'none';
+      document.querySelector('.instagram-gallery').style.display = 'none';
+      document.querySelector('.newsletter').style.display = 'none';
+      document.getElementById('shopPage').style.display = 'none';
+      document.getElementById('cartPage').style.display = 'none';
+      document.getElementById('wishlistPage').style.display = 'block';
+      renderWishlistPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.querySelectorAll('.nav-primary a').forEach(a => a.classList.remove('active'));
     }
-    function updateWishlistBadge() {
-      const w = getWishlist();
-      const badge = document.getElementById('wishlistCount');
-      if (badge) badge.textContent = w.length;
+
+    function hideWishlistPage(e) {
+      if (e) e.preventDefault();
+      document.getElementById('homeHero').style.display = 'flex';
+      document.getElementById('categoriesSection').style.display = 'block';
+      document.getElementById('best-sellers').style.display = 'block';
+      document.getElementById('new-arrivals').style.display = 'block';
+      document.querySelector('.promise').style.display = 'block';
+      document.querySelector('.promo-banner').style.display = 'block';
+      document.querySelector('.reviews').style.display = 'block';
+      document.querySelector('.instagram-gallery').style.display = 'block';
+      document.querySelector('.newsletter').style.display = 'block';
+      document.getElementById('shopPage').style.display = 'none';
+      document.getElementById('cartPage').style.display = 'none';
+      document.getElementById('wishlistPage').style.display = 'none';
+      document.querySelectorAll('.nav-primary a').forEach(a => a.classList.remove('active'));
+      document.querySelector('.nav-primary a[href="index.html"]')?.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // ----- Load Products -----
