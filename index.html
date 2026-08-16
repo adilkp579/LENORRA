@@ -266,7 +266,7 @@
     }
     /* Desktop hero image - default */
     .hero {
-      background-image: url('https://t3.ftcdn.net/jpg/03/13/83/88/360_F_313838810_lp8gF9Y16N3URw9BbcUV6OdBiOVQ9A7k.jpg');
+      background-image: url('https://t4.ftcdn.net/jpg/19/86/44/69/240_F_1986446943_ggqeBi6SQMZ5eXq7feqlTBh40XAsLtR3.jpg');
     }
     .hero::before {
       content: '';
@@ -1383,13 +1383,13 @@
     .whatsapp-float:hover { transform: scale(1.08); }
 
     /* ============================================================
-       RESPONSIVE - HERO IMAGE SWITCH
+       RESPONSIVE - HERO IMAGE SWITCH & TEXT TO BOTTOM ON MOBILE
     ============================================================ */
 
     /* Mobile hero image - switch at 768px */
     @media (max-width: 768px) {
       .hero {
-        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK-s8xUsRw_VNv8uOyppUz3QX0o6tttfgR9hVsik9Z_Vn3irljgSvtXcU&s=10') !important;
+        background-image: url('https://t4.ftcdn.net/jpg/19/86/44/69/240_F_1986446943_ggqeBi6SQMZ5eXq7feqlTBh40XAsLtR3.jpg') !important;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -1399,13 +1399,33 @@
         margin: 0;
         border-radius: 0;
         margin-top: 0;
+        align-items: flex-end;
+        justify-content: center;
       }
       .hero::before {
         border-radius: 0;
       }
       .hero-content {
-        margin-top: 4rem;
-        padding: 2rem 1.5rem;
+        text-align: center;
+        padding: 2rem 1.5rem 3rem;
+        max-width: 100%;
+        margin-top: 0;
+        width: 100%;
+      }
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      .hero-sub {
+        font-size: 1rem;
+        margin: 1rem 0 1.5rem;
+        max-width: 100%;
+      }
+      .hero-buttons {
+        justify-content: center;
+      }
+      .hero-buttons .btn {
+        padding: 0.7rem 1.8rem;
+        font-size: 0.9rem;
       }
     }
 
@@ -1448,28 +1468,6 @@
       .header-actions { gap: 0.3rem; }
       .icon-btn { font-size: 1rem; width: 38px; height: 38px; background: rgba(255,255,255,0.4); }
       .badge { font-size: 0.5rem; min-width: 18px; top: -2px; right: -2px; }
-
-      .hero {
-        min-height: 100vh;
-        height: 100vh;
-        max-height: 100vh;
-        margin: 0;
-        border-radius: 0;
-        background-position: center;
-        background-size: cover;
-        margin-top: 0;
-      }
-      .hero::before { border-radius: 0; }
-      .hero-content {
-        text-align: center;
-        padding: 2.5rem 1.5rem;
-        max-width: 100%;
-        margin-top: 4rem;
-      }
-      .hero-content h1 { font-size: 2.5rem; }
-      .hero-sub { font-size: 1rem; margin: 1rem 0 1.5rem; max-width: 100%; }
-      .hero-buttons { justify-content: center; }
-      .hero-buttons .btn { padding: 0.7rem 1.8rem; font-size: 0.9rem; }
 
       .shop-page {
         margin: 0 0.8rem 1.5rem;
@@ -1695,14 +1693,20 @@
         border-radius: 0; 
         background-size: cover; 
         margin-top: 0;
+        align-items: flex-end;
+        justify-content: center;
       }
       .hero::before { border-radius: 0; }
       .hero-content { 
-        padding: 1.5rem 1rem; 
-        margin-top: 3.5rem;
+        text-align: center;
+        padding: 1.5rem 1rem 2.5rem;
+        max-width: 100%;
+        margin-top: 0;
+        width: 100%;
       }
       .hero-content h1 { font-size: 1.8rem; }
-      .hero-sub { font-size: 0.85rem; margin: 0.8rem 0 1.2rem; }
+      .hero-sub { font-size: 0.85rem; margin: 0.8rem 0 1.2rem; max-width: 100%; }
+      .hero-buttons { justify-content: center; }
       .hero-buttons .btn { padding: 0.5rem 1.2rem; font-size: 0.75rem; }
 
       .shop-page {
@@ -1839,11 +1843,16 @@
         border-radius: 0; 
         background-size: cover; 
         margin-top: 0;
+        align-items: flex-end;
+        justify-content: center;
       }
       .hero::before { border-radius: 0; }
       .hero-content { 
-        padding: 1.2rem 0.8rem;
-        margin-top: 3rem;
+        text-align: center;
+        padding: 1.2rem 0.8rem 2rem;
+        max-width: 100%;
+        margin-top: 0;
+        width: 100%;
       }
       .hero-content h1 { font-size: 1.5rem; }
 
