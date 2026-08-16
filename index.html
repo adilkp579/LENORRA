@@ -33,12 +33,16 @@
     .btn-cart-icon { background: transparent; border: 1px solid #d6cdc6; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; color: #1e1b1a; font-size: 1rem; flex-shrink: 0; }
     .btn-cart-icon:hover { border-color: #b89a7b; background: #b89a7b; color: #fff; }
 
-    /* ===== HEADER - NO CHANGES ===== */
+    /* ===== HEADER ===== */
     .header {
-      position: sticky;
+      position: fixed;
       top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 100;
-      margin: 0 1.5rem 1rem;
+      width: calc(100% - 3rem);
+      max-width: 1280px;
+      margin: 0;
       padding: 0.7rem 1.2rem;
       background: rgba(255, 255, 255, 0.55);
       backdrop-filter: blur(24px) saturate(180%);
@@ -242,7 +246,7 @@
       border-color: rgba(184, 154, 123, 0.3);
     }
 
-    /* ===== HERO - FULL SCREEN NO CARD ===== */
+    /* ===== HERO - FULL SCREEN FROM TOP ===== */
     .hero {
       display: flex;
       align-items: center;
@@ -258,10 +262,11 @@
       background-position: center;
       background-repeat: no-repeat;
       border-radius: 0;
+      margin-top: 0;
     }
     /* Desktop hero image */
     .hero {
-      background-image: url('desktopphoto.png');
+      background-image: url('https://www.vecteezy.com/free-photos/indian-business-woman');
     }
     .hero::before {
       content: '';
@@ -277,6 +282,7 @@
       z-index: 2;
       position: relative;
       max-width: 700px;
+      margin-top: 2rem;
     }
     .hero-content h1 {
       font-family: 'Playfair Display', serif;
@@ -309,7 +315,7 @@
     ============================================================ */
     .shop-page {
       min-height: 80vh;
-      padding: 3rem 0;
+      padding: 5rem 0 3rem 0;
       background: #f8f4f0;
       border-radius: 30px;
       margin: 0 1.5rem 2rem;
@@ -321,6 +327,7 @@
     }
     .shop-page .section-title {
       margin-bottom: 2rem;
+      padding-top: 1rem;
     }
 
     .shop-category-filter {
@@ -469,7 +476,7 @@
     ============================================================ */
     .cart-page {
       min-height: 80vh;
-      padding: 3rem 0;
+      padding: 5rem 0 3rem 0;
       background: #f8f4f0;
       border-radius: 30px;
       margin: 0 1.5rem 2rem;
@@ -481,6 +488,7 @@
     }
     .cart-page .section-title {
       margin-bottom: 2rem;
+      padding-top: 1rem;
     }
     .cart-empty {
       text-align: center;
@@ -604,7 +612,7 @@
     ============================================================ */
     .wishlist-page {
       min-height: 80vh;
-      padding: 3rem 0;
+      padding: 5rem 0 3rem 0;
       background: #f8f4f0;
       border-radius: 30px;
       margin: 0 1.5rem 2rem;
@@ -616,6 +624,7 @@
     }
     .wishlist-page .section-title {
       margin-bottom: 2rem;
+      padding-top: 1rem;
     }
     .wishlist-empty {
       text-align: center;
@@ -1374,7 +1383,7 @@
     .whatsapp-float:hover { transform: scale(1.08); }
 
     /* ============================================================
-       RESPONSIVE - HERO FULL SCREEN
+       RESPONSIVE
     ============================================================ */
 
     @media (max-width: 768px) {
@@ -1389,9 +1398,14 @@
         max-height: 100vh;
         margin: 0;
         border-radius: 0;
+        margin-top: 0;
       }
       .hero::before {
         border-radius: 0;
+      }
+      .hero-content {
+        margin-top: 4rem;
+        padding: 2rem 1.5rem;
       }
     }
 
@@ -1421,10 +1435,14 @@
 
       /* HEADER STYLES - NO CHANGES */
       .header {
-        margin: 0.5rem 0.8rem 1rem;
+        position: fixed;
+        top: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 1.6rem);
+        margin: 0;
         padding: 0.5rem 0.8rem;
         border-radius: 50px;
-        top: 0.5rem;
       }
       .logo a { font-size: 1.5rem; }
       .header-actions { gap: 0.3rem; }
@@ -1439,12 +1457,14 @@
         border-radius: 0;
         background-position: center;
         background-size: cover;
+        margin-top: 0;
       }
       .hero::before { border-radius: 0; }
       .hero-content {
         text-align: center;
         padding: 2.5rem 1.5rem;
         max-width: 100%;
+        margin-top: 4rem;
       }
       .hero-content h1 { font-size: 2.5rem; }
       .hero-sub { font-size: 1rem; margin: 1rem 0 1.5rem; max-width: 100%; }
@@ -1453,7 +1473,7 @@
 
       .shop-page {
         margin: 0 0.8rem 1.5rem;
-        padding: 2rem 0;
+        padding: 4rem 0 2rem 0;
         border-radius: 20px;
       }
       .shop-page .container { padding: 0 0.8rem; }
@@ -1478,7 +1498,7 @@
 
       .cart-page {
         margin: 0 0.8rem 1.5rem;
-        padding: 1.5rem 0;
+        padding: 4rem 0 2rem 0;
         border-radius: 20px;
       }
       .cart-page .container { padding: 0 0.8rem; }
@@ -1510,7 +1530,7 @@
 
       .wishlist-page {
         margin: 0 0.8rem 1.5rem;
-        padding: 1.5rem 0;
+        padding: 4rem 0 2rem 0;
         border-radius: 20px;
       }
       .wishlist-page .container { padding: 0 0.8rem; }
@@ -1654,7 +1674,12 @@
       .search-toggle { display: none !important; }
       .account-toggle { display: none !important; }
       .header {
-        margin: 0.3rem 0.3rem 0.8rem;
+        position: fixed;
+        top: 0.3rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 0.6rem);
+        margin: 0;
         padding: 0.3rem 0.5rem;
         border-radius: 35px;
       }
@@ -1669,16 +1694,20 @@
         margin: 0; 
         border-radius: 0; 
         background-size: cover; 
+        margin-top: 0;
       }
       .hero::before { border-radius: 0; }
-      .hero-content { padding: 1.5rem 1rem; }
+      .hero-content { 
+        padding: 1.5rem 1rem; 
+        margin-top: 3.5rem;
+      }
       .hero-content h1 { font-size: 1.8rem; }
       .hero-sub { font-size: 0.85rem; margin: 0.8rem 0 1.2rem; }
       .hero-buttons .btn { padding: 0.5rem 1.2rem; font-size: 0.75rem; }
 
       .shop-page {
         margin: 0 0.3rem 1rem;
-        padding: 1.2rem 0;
+        padding: 3.5rem 0 1.5rem 0;
         border-radius: 14px;
       }
       .shop-page .container { padding: 0 0.3rem; }
@@ -1698,7 +1727,7 @@
 
       .cart-page {
         margin: 0 0.3rem 1rem;
-        padding: 1rem 0;
+        padding: 3.5rem 0 1.5rem 0;
         border-radius: 14px;
       }
       .cart-page .container { padding: 0 0.3rem; }
@@ -1710,7 +1739,7 @@
 
       .wishlist-page {
         margin: 0 0.3rem 1rem;
-        padding: 1rem 0;
+        padding: 3.5rem 0 1.5rem 0;
         border-radius: 14px;
       }
       .wishlist-page .container { padding: 0 0.3rem; }
@@ -1789,7 +1818,12 @@
       .search-toggle { display: none !important; }
       .account-toggle { display: none !important; }
       .header {
-        margin: 0.2rem 0.2rem 0.5rem;
+        position: fixed;
+        top: 0.2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 0.4rem);
+        margin: 0;
         padding: 0.2rem 0.3rem;
         border-radius: 30px;
       }
@@ -1804,8 +1838,13 @@
         margin: 0; 
         border-radius: 0; 
         background-size: cover; 
+        margin-top: 0;
       }
       .hero::before { border-radius: 0; }
+      .hero-content { 
+        padding: 1.2rem 0.8rem;
+        margin-top: 3rem;
+      }
       .hero-content h1 { font-size: 1.5rem; }
 
       .shop-page .product-image { height: 150px; }
