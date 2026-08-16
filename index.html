@@ -35,22 +35,25 @@
 
     /* ===== HEADER ===== */
     .header {
-      position: sticky;
-      top: 1rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
-      margin: 0 1.5rem 1rem;
-      padding: 0.7rem 1.2rem;
+      margin: 0;
+      padding: 0.7rem 1.5rem;
       background: rgba(255, 255, 255, 0.55);
       backdrop-filter: blur(24px) saturate(180%);
       -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border-radius: 70px;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border-radius: 0;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 40px rgba(0, 0, 0, 0.04);
       transition: all 0.3s ease;
     }
     .header:hover {
       background: rgba(255, 255, 255, 0.65);
-      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      box-shadow: 0 2px 48px rgba(0, 0, 0, 0.06);
     }
     .header-inner {
       display: flex;
@@ -242,25 +245,31 @@
       border-color: rgba(184, 154, 123, 0.3);
     }
 
-    /* ===== HERO ===== */
+    /* ===== HERO - FULL SCREEN ===== */
     .hero {
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      min-height: 90vh;
+      min-height: 100vh;
+      width: 100%;
       overflow: hidden;
-      border-radius: 30px;
-      margin: 0 1.5rem 2rem;
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
       position: relative;
-      background: url('https://theglossarymagazine.com/wp-content/uploads/Vuitton-Radiance-Necklace-2.webp') center/cover no-repeat;
       background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    /* Desktop hero image */
+    .hero {
+      background-image: url('desktopphoto.png');
     }
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
       background: rgba(0, 0, 0, 0.4);
-      border-radius: 30px;
       z-index: 0;
     }
     .hero-content {
@@ -1366,8 +1375,18 @@
     .whatsapp-float:hover { transform: scale(1.08); }
 
     /* ============================================================
-       RESPONSIVE - UNIFIED CARD SIZES ACROSS ALL SECTIONS
+       RESPONSIVE - HERO IMAGE SWITCH & UNIFIED CARD SIZES
     ============================================================ */
+
+    @media (max-width: 768px) {
+      /* Switch to mobile hero image on tablet and below */
+      .hero {
+        background-image: url('mobilephoto.png') !important;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
 
     @media (max-width: 1024px) {
       .product-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
@@ -1394,10 +1413,10 @@
       .account-toggle { display: none; }
 
       .header {
-        margin: 0.5rem 0.8rem 1rem;
+        margin: 0;
         padding: 0.5rem 0.8rem;
-        border-radius: 50px;
-        top: 0.5rem;
+        border-radius: 0;
+        top: 0;
       }
       .logo a { font-size: 1.5rem; }
       .header-actions { gap: 0.3rem; }
@@ -1405,13 +1424,13 @@
       .badge { font-size: 0.5rem; min-width: 18px; top: -2px; right: -2px; }
 
       .hero {
-        min-height: 70vh;
-        margin: 0 0.8rem 1.5rem;
-        border-radius: 20px;
-        background-position: center 30%;
+        min-height: 100vh;
+        margin: 0;
+        border-radius: 0;
+        background-position: center;
         background-size: cover;
       }
-      .hero::before { border-radius: 20px; }
+      .hero::before { border-radius: 0; }
       .hero-content {
         text-align: center;
         padding: 2.5rem 1.5rem;
@@ -1625,15 +1644,15 @@
       .search-toggle { display: none !important; }
       .account-toggle { display: none !important; }
       .header {
-        margin: 0.3rem 0.3rem 0.8rem;
+        margin: 0;
         padding: 0.3rem 0.5rem;
-        border-radius: 35px;
+        border-radius: 0;
       }
       .logo a { font-size: 1.2rem; }
       .icon-btn { font-size: 0.85rem; width: 32px; height: 32px; }
       .badge { font-size: 0.4rem; min-width: 15px; padding: 0.05rem 0.25rem; top: -2px; right: -2px; }
 
-      .hero { min-height: 60vh; margin: 0 0.3rem 1rem; border-radius: 14px; background-size: cover; }
+      .hero { min-height: 100vh; margin: 0; border-radius: 0; background-size: cover; }
       .hero-content { padding: 1.5rem 1rem; }
       .hero-content h1 { font-size: 1.8rem; }
       .hero-sub { font-size: 0.85rem; margin: 0.8rem 0 1.2rem; }
@@ -1752,16 +1771,16 @@
       .search-toggle { display: none !important; }
       .account-toggle { display: none !important; }
       .header {
-        margin: 0.2rem 0.2rem 0.5rem;
+        margin: 0;
         padding: 0.2rem 0.3rem;
-        border-radius: 30px;
+        border-radius: 0;
       }
       .logo a { font-size: 1rem; }
       .icon-btn { font-size: 0.75rem; width: 28px; height: 28px; }
       .badge { font-size: 0.35rem; min-width: 12px; padding: 0.05rem 0.2rem; }
 
       .hero-content h1 { font-size: 1.5rem; }
-      .hero { margin: 0 0.2rem 0.8rem; border-radius: 12px; background-size: cover; }
+      .hero { margin: 0; border-radius: 0; background-size: cover; }
 
       .shop-page .product-image { height: 150px; }
       .shop-page .product-name { font-size: 0.75rem; }
@@ -1866,7 +1885,7 @@
   </div>
 
   <main>
-    <!-- HERO -->
+    <!-- HERO - FULL SCREEN -->
     <section class="hero" id="homeHero" aria-label="Featured collection">
       <div class="hero-content">
         <h1>Jewellery That Lasts Beyond the Moment</h1>
@@ -2085,7 +2104,7 @@
   <!-- ========== JAVASCRIPT ========== -->
   <script>
     // ----- WHATSAPP NUMBER -----
-    const WHATSAPP_NUMBER = "919747960039";
+    const WHATSAPP_NUMBER = "919207271076";
 
     // ----- 32 PRODUCTS -----
     const allProducts = [
