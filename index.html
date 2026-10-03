@@ -409,57 +409,82 @@
     }
 
 
-    /* ===== PRODUCT VIEW PAGE ===== */
+    /* ===== PRODUCT VIEW PAGE: hero photo, then scroll for more photos, details, related ===== */
     .product-card { cursor: pointer; }
     .pv { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; visibility: hidden; opacity: 0; transition: opacity .35s ease, visibility 0s linear .35s; }
     .pv.active { visibility: visible; opacity: 1; transition: opacity .35s ease, visibility 0s; }
     .pv-backdrop { position: absolute; inset: -60px; background: #2a2522 center / cover no-repeat; filter: blur(40px) brightness(.65) saturate(1.1); }
-    .pv-screen { position: relative; width: min(460px, 100%); height: min(92vh, 880px); border-radius: 36px; overflow: hidden; background: #1a1512; box-shadow: 0 40px 100px rgba(0,0,0,.5); transform: translateY(30px) scale(.97); transition: transform .6s var(--ease); color: #fff; }
+    .pv-screen { position: relative; width: min(460px, 100%); height: min(92vh, 880px); border-radius: 36px; overflow: hidden; background: #14110f; box-shadow: 0 40px 100px rgba(0,0,0,.5); transform: translateY(30px) scale(.97); transition: transform .6s var(--ease); color: #fff; }
     .pv.active .pv-screen { transform: none; }
+    .pv-scroll { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
+
+    .pv-hero { position: relative; height: calc(100% - 70px); overflow: hidden; }
     .pv-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .pv-screen::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 45%, rgba(8,6,5,.7) 100%); pointer-events: none; }
-    .pv-top { position: absolute; top: 0; left: 0; right: 0; z-index: 4; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 1.2rem; }
-    .pv-back { display: flex; align-items: center; gap: .65rem; color: #fff; font: 600 .92rem 'Inter', sans-serif; background: none; border: 0; cursor: pointer; text-shadow: 0 1px 8px rgba(0,0,0,.4); }
-    .pv-ic { width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: rgba(20,17,15,.38); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.25); color: #fff; font-size: .95rem; cursor: pointer; transition: .2s; }
-    button.pv-ic:hover, .pv-back:hover .pv-ic { background: var(--gold); border-color: var(--gold); }
-    .pv-about { position: absolute; left: 1.4rem; right: 1.4rem; bottom: 190px; z-index: 3; opacity: 0; transform: translateY(14px); pointer-events: none; transition: opacity .5s ease, transform .6s var(--ease); text-shadow: 0 1px 12px rgba(0,0,0,.55); }
-    .pv-screen.collapsed .pv-about { opacity: 1; transform: none; }
-    .pv-about h4 { font-size: .82rem; font-weight: 700; margin-bottom: .35rem; }
-    .pv-about .pv-loc { font-size: .82rem; font-weight: 600; margin-bottom: .45rem; }
-    .pv-about .pv-loc i { margin-right: .4rem; }
-    .pv-about p:last-child { font-size: .8rem; line-height: 1.55; color: rgba(255,255,255,.88); }
-    .pv-sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 4; padding: .2rem 1.3rem 1.3rem; border-radius: 30px 30px 0 0; background: rgba(18,15,13,.42); backdrop-filter: blur(28px) saturate(1.3); -webkit-backdrop-filter: blur(28px) saturate(1.3); border: 1px solid rgba(255,255,255,.28); border-bottom: 0; }
-    .pv-grip { display: block; width: 100%; padding: .65rem 0 .8rem; background: none; border: 0; cursor: pointer; }
-    .pv-grip::before { content: ''; display: block; width: 44px; height: 5px; margin: 0 auto; border-radius: 9px; background: rgba(255,255,255,.55); }
+    .pv-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 46%, rgba(8,6,5,.75) 100%); pointer-events: none; }
+
+    .pv-top { position: absolute; top: 0; left: 0; right: 0; z-index: 6; display: flex; align-items: center; justify-content: space-between; gap: .8rem; padding: .9rem 1.1rem; border-bottom: 1px solid transparent; transition: background .35s ease, border-color .35s ease; }
+    .pv-top.scrolled { background: rgba(16,13,11,.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-color: rgba(255,255,255,.08); }
+    .pv-ttl { flex: 1; text-align: center; font: 600 .95rem 'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease; }
+    .pv-top.scrolled .pv-ttl { opacity: 1; transform: none; }
+    .pv-ic { width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: rgba(20,17,15,.38); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.25); color: #fff; font-size: .95rem; cursor: pointer; transition: .2s; flex-shrink: 0; }
+    .pv-ic:hover { background: var(--gold); border-color: var(--gold); }
+
+    .pv-sheet { position: absolute; left: .7rem; right: .7rem; bottom: calc(28px + .6rem); z-index: 3; padding: .1rem 1.1rem 1.1rem; border-radius: 28px; background: rgba(18,15,13,.46); backdrop-filter: blur(28px) saturate(1.3); -webkit-backdrop-filter: blur(28px) saturate(1.3); border: 1px solid rgba(255,255,255,.28); }
+    .pv-grip { display: flex; flex-direction: column; align-items: center; gap: .3rem; width: 100%; padding: .6rem 0 .7rem; background: none; border: 0; cursor: pointer; color: rgba(255,255,255,.72); font: 500 .68rem 'Inter', sans-serif; }
+    .pv-grip i { font-size: .7rem; animation: pvBob 1.8s ease-in-out infinite; }
+    @keyframes pvBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
     .pv-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; }
-    .pv-head h2 { font: 700 1.5rem/1.2 'Inter', sans-serif; letter-spacing: -.01em; }
-    .pv-head p { margin-top: .15rem; font-size: .78rem; color: rgba(255,255,255,.7); }
-    .pv-stats { display: flex; gap: 1.3rem; flex-shrink: 0; }
+    .pv-head h2 { font: 700 1.45rem/1.2 'Inter', sans-serif; letter-spacing: -.01em; }
+    .pv-head p { margin-top: .15rem; font-size: .76rem; color: rgba(255,255,255,.72); }
+    .pv-stats { display: flex; gap: 1.2rem; flex-shrink: 0; }
     .pv-stat { text-align: center; }
-    .pv-stat strong { display: block; font-size: 1.3rem; font-weight: 700; line-height: 1.2; }
-    .pv-stat strong i { color: #e8a35c; font-size: .9rem; margin-right: .2rem; }
-    .pv-stat span { font-size: .7rem; color: rgba(255,255,255,.7); }
-    .pv-body { overflow: hidden; max-height: 560px; transition: max-height .55s var(--ease), opacity .4s ease; }
-    .pv-screen.collapsed .pv-body { max-height: 0; opacity: 0; }
-    .pv-feats { display: grid; grid-template-columns: repeat(4, 1fr); gap: .3rem; margin: 1rem 0 .9rem; padding: .85rem 0; border-top: 1px solid rgba(255,255,255,.2); border-bottom: 1px solid rgba(255,255,255,.2); }
-    .pv-feat { display: flex; flex-direction: column; align-items: center; gap: .4rem; text-align: center; font-size: .66rem; line-height: 1.25; color: rgba(255,255,255,.82); }
-    .pv-feat i { font-size: 1.15rem; color: #fff; }
-    .pv-more-title { font-size: .78rem; font-weight: 600; color: rgba(255,255,255,.85); margin-bottom: .6rem; }
-    .pv-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: .5rem; height: clamp(120px, 22vh, 190px); }
-    .pv-thumb { padding: 0; border: 0; border-radius: 14px; overflow: hidden; cursor: pointer; background: #2a2522; transition: transform .3s var(--ease); }
-    .pv-thumb:first-child { grid-row: span 2; }
-    .pv-thumb:hover { transform: scale(1.03); }
-    .pv-thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .pv-actions { display: flex; gap: .7rem; margin-top: 1rem; }
-    .pv-cta { flex: 1; height: 52px; border: 0; border-radius: 999px; background: #fff; color: var(--ink); font: 600 .95rem 'Inter', sans-serif; cursor: pointer; transition: .2s; }
+    .pv-stat strong { display: block; font-size: 1.25rem; font-weight: 700; line-height: 1.2; }
+    .pv-stat strong i { color: #e8a35c; font-size: .85rem; margin-right: .2rem; }
+    .pv-stat span { font-size: .68rem; color: rgba(255,255,255,.7); }
+    .pv-actions { display: flex; gap: .7rem; margin-top: .9rem; }
+    .pv-cta { flex: 1; height: 52px; border: 0; border-radius: 999px; background: #fff; color: var(--ink); font: 600 .95rem 'Inter', sans-serif; cursor: pointer; transition: .2s; white-space: nowrap; }
     .pv-cta i { margin-right: .45rem; color: #1da85c; }
     .pv-cta:hover { background: #f1ece6; transform: translateY(-1px); }
-    .pv-round { width: 52px; height: 52px; border: 0; border-radius: 18px; background: #fff; color: var(--ink); font-size: 1.05rem; cursor: pointer; transition: .2s; }
+    .pv-round { width: 52px; height: 52px; flex: none; border: 0; border-radius: 18px; background: #fff; color: var(--ink); font-size: 1.05rem; cursor: pointer; transition: .2s; }
     .pv-round:hover { background: var(--gold-l); }
+
+    .pv-flow { position: relative; z-index: 4; margin-top: -28px; padding: 1rem .7rem 6rem; background: #14110f; border-radius: 28px 28px 0 0; }
+    .pv-thumbs { display: flex; gap: .6rem; overflow-x: auto; padding: .15rem .5rem; }
+    .pv-th { position: relative; flex: 0 0 64px; width: 64px; height: 64px; padding: 0; border: 2px solid transparent; border-radius: 16px; overflow: hidden; background: #2a2522; cursor: pointer; opacity: .65; transition: opacity .25s ease, border-color .25s ease, transform .3s var(--ease); }
+    .pv-th img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .pv-th:hover { opacity: 1; transform: translateY(-2px); }
+    .pv-th.active { opacity: 1; border-color: var(--gold-l); }
+    .pv-photo { transition: opacity .25s ease; }
+    .pv-details, .pv-related { padding: 1.8rem .5rem 0; }
+    .pv-details h3, .pv-related h3 { font: 600 1.2rem 'Playfair Display', serif; margin-bottom: .8rem; }
+    .pv-details p { font-size: .9rem; line-height: 1.7; color: rgba(255,255,255,.78); }
+    .pv-specs { margin-top: 1.1rem; border-top: 1px solid rgba(255,255,255,.12); }
+    .pv-specs div { display: flex; justify-content: space-between; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid rgba(255,255,255,.12); font-size: .85rem; }
+    .pv-specs dt { color: rgba(255,255,255,.6); }
+    .pv-specs dd { font-weight: 600; text-align: right; }
+    .pv-feats { display: grid; grid-template-columns: repeat(4, 1fr); gap: .3rem; margin-top: 1.2rem; padding: .9rem 0; border-top: 1px solid rgba(255,255,255,.15); border-bottom: 1px solid rgba(255,255,255,.15); }
+    .pv-feat { display: flex; flex-direction: column; align-items: center; gap: .4rem; text-align: center; font-size: .66rem; line-height: 1.25; color: rgba(255,255,255,.82); }
+    .pv-feat i { font-size: 1.15rem; color: var(--gold-l); }
+    .pv-rel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem .8rem; }
+    .pv-rel { padding: 0; border: 0; background: none; text-align: left; color: #fff; cursor: pointer; }
+    .pv-rel .im { display: block; overflow: hidden; border-radius: 18px; }
+    .pv-rel img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #2a2522; transition: transform .5s var(--ease); }
+    .pv-rel:hover img { transform: scale(1.05); }
+    .pv-rel .n { display: block; margin-top: .55rem; font-size: .85rem; font-weight: 600; }
+    .pv-rel .p { font-size: .8rem; color: var(--gold-l); }
+    .pv-rel s { margin-left: .35rem; color: rgba(255,255,255,.45); }
+
+    .pv-dock { position: absolute; left: .7rem; right: .7rem; bottom: .7rem; z-index: 7; display: flex; align-items: center; gap: .7rem; padding: .55rem .55rem .55rem 1.1rem; border-radius: 26px; background: rgba(18,15,13,.84); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,.18); transform: translateY(140%); opacity: 0; pointer-events: none; transition: transform .5s var(--ease), opacity .3s ease; }
+    .pv-dock.show { transform: none; opacity: 1; pointer-events: auto; }
+    .pv-dock .who { flex: 1; min-width: 0; }
+    .pv-dock small { display: block; font-size: .7rem; color: rgba(255,255,255,.65); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pv-dock strong { font-size: 1.1rem; }
+    .pv-dock .pv-cta { flex: none; height: 46px; padding: 0 1.2rem; font-size: .88rem; }
+    .pv-dock .pv-round { width: 46px; height: 46px; border-radius: 16px; }
     @media (max-width: 600px) {
       .pv-screen { width: 100%; height: 100%; height: 100dvh; border-radius: 0; }
-      .pv-head h2 { font-size: 1.3rem; }
-      .pv-stat strong { font-size: 1.15rem; }
+      .pv-head h2 { font-size: 1.25rem; }
+      .pv-stat strong { font-size: 1.1rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -959,7 +984,17 @@
 
     // ----- Product View Page -----
     let pvOpen = false;
+    let pvImgs = [];
     const pvHiRes = u => u.replace('w=400&h=400', 'w=900&h=1200');
+
+    // all photos of a product (add more URLs to a product's `images` array for real extra shots)
+    function pvImages(p) {
+      const base = [...new Set((p.images && p.images.length ? p.images : [p.image]).map(u => u.replace(/&rot=\d+/, '')))];
+      const crops = ['left', 'right', 'entropy'];
+      let i = 0;
+      while (base.length < 3 && i < crops.length) base.push(base[0].replace('crop=center', 'crop=' + crops[i++]));
+      return base.map(pvHiRes);
+    }
 
     function openProductDetail(productId) {
       const p = allProducts.find(x => x.id === productId);
@@ -967,10 +1002,12 @@
       const view = document.getElementById('productView');
       const screen = document.getElementById('pvScreen');
       const d = p.originalPrice ? Math.round((1 - p.price / p.originalPrice) * 100) : 0;
+      const imgs = pvImages(p);
+      pvImgs = imgs;
       const related = [
         ...allProducts.filter(x => x.id !== p.id && x.category === p.category),
         ...allProducts.filter(x => x.id !== p.id && x.category !== p.category)
-      ].slice(0, 5);
+      ].slice(0, 6);
       const inW = getWishlist().includes(p.id);
       const feats = [
         p.antiTarnish ? ['fa-shield-alt', 'Anti‑Tarnish'] : null,
@@ -978,42 +1015,75 @@
         ['fa-smile', 'Skin Friendly'],
         ['fa-gem', 'Long Lasting']
       ].filter(Boolean);
+      const specs = [
+        ['Category', p.category],
+        ['Material', p.material],
+        ['Finish', p.finish],
+        ['Anti‑Tarnish', p.antiTarnish ? 'Yes' : 'No'],
+        ['Water Resistant', p.waterResistant ? 'Yes' : 'No'],
+        ['Availability', p.stock ? p.stock + ' in stock' : 'In stock']
+      ];
+      const actions = `
+        <button class="pv-cta" onclick="orderViaWhatsApp(${p.id})"><i class="fab fa-whatsapp"></i>Order on WhatsApp</button>
+        <button class="pv-round" onclick="addToCart(${p.id})" title="Add to Cart" aria-label="Add to cart"><i class="fas fa-shopping-bag"></i></button>`;
       view.querySelector('.pv-backdrop').style.backgroundImage = `url('${p.image}')`;
-      screen.classList.remove('collapsed');
       screen.innerHTML = `
-        <img class="pv-photo" src="${pvHiRes(p.image)}" alt="${p.name}" />
-        <div class="pv-top">
-          <button class="pv-back" onclick="closeProductDetail()" aria-label="Back"><span class="pv-ic"><i class="fas fa-chevron-left"></i></span><span>${p.category}</span></button>
+        <div class="pv-top" id="pvTop">
+          <button class="pv-ic" onclick="closeProductDetail()" aria-label="Back"><i class="fas fa-chevron-left"></i></button>
+          <span class="pv-ttl">${p.name}</span>
           <button class="pv-ic" id="pvHeart" onclick="pvWish(${p.id})" aria-label="Wishlist"><i class="${inW ? 'fas' : 'far'} fa-heart"></i></button>
         </div>
-        <div class="pv-about">
-          <h4>About this piece</h4>
-          <p class="pv-loc"><i class="fas fa-gem"></i>${p.material} · ${p.finish}</p>
-          <p>${p.description}</p>
+        <div class="pv-scroll" id="pvScroll">
+          <div class="pv-hero">
+            <img class="pv-photo" src="${imgs[0]}" alt="${p.name}" />
+            <div class="pv-sheet">
+              <button class="pv-grip" onclick="pvDown()" aria-label="Scroll for more"><i class="fas fa-chevron-up"></i><span>Swipe up for more photos &amp; details</span></button>
+              <div class="pv-head">
+                <div>
+                  <h2>${p.name}</h2>
+                  <p>${p.category}${d > 0 ? ' · ' + d + '% off' : ''}${p.originalPrice ? ' · was ₹' + p.originalPrice : ''}</p>
+                </div>
+                <div class="pv-stats">
+                  <div class="pv-stat"><strong>₹${p.price}</strong><span>Price</span></div>
+                  <div class="pv-stat"><strong><i class="fas fa-star"></i>${p.rating}</strong><span>Rating</span></div>
+                </div>
+              </div>
+              <div class="pv-actions">${actions}</div>
+            </div>
+          </div>
+          <div class="pv-flow">
+            <div class="pv-thumbs" role="tablist" aria-label="Product photos">${imgs.map((u, i) => `<button class="pv-th${i === 0 ? ' active' : ''}" onclick="pvSetPhoto(${i})" aria-label="Photo ${i + 1}"><img src="${u.replace('w=900&h=1200', 'w=160&h=160')}" alt="${p.name} photo ${i + 1}" /></button>`).join('')}</div>
+            <section class="pv-details">
+              <h3>About this piece</h3>
+              <p>${p.description}</p>
+              <dl class="pv-specs">${specs.map(r => `<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join('')}</dl>
+              <div class="pv-feats">${feats.map(f => `<div class="pv-feat"><i class="fas ${f[0]}"></i><span>${f[1]}</span></div>`).join('')}</div>
+            </section>
+            <section class="pv-related">
+              <h3>You may also like</h3>
+              <div class="pv-rel-grid">${related.map(r => `
+                <button class="pv-rel" onclick="openProductDetail(${r.id})" aria-label="${r.name}">
+                  <span class="im"><img src="${r.image}" alt="${r.name}" loading="lazy" /></span>
+                  <span class="n">${r.name}</span>
+                  <span class="p">₹${r.price}${r.originalPrice ? `<s>₹${r.originalPrice}</s>` : ''}</span>
+                </button>`).join('')}</div>
+            </section>
+          </div>
         </div>
-        <div class="pv-sheet">
-          <button class="pv-grip" onclick="pvToggle()" aria-label="Expand or collapse details"></button>
-          <div class="pv-head">
-            <div>
-              <h2>${p.name}</h2>
-              <p>${p.category}${d > 0 ? ' · ' + d + '% off' : ''}${p.originalPrice ? ' · was ₹' + p.originalPrice : ''}</p>
-            </div>
-            <div class="pv-stats">
-              <div class="pv-stat"><strong>₹${p.price}</strong><span>Price</span></div>
-              <div class="pv-stat"><strong><i class="fas fa-star"></i>${p.rating}</strong><span>Rating</span></div>
-            </div>
-          </div>
-          <div class="pv-body">
-            <div class="pv-feats">${feats.map(f => `<div class="pv-feat"><i class="fas ${f[0]}"></i><span>${f[1]}</span></div>`).join('')}</div>
-            <div class="pv-more-title">More like this</div>
-            <div class="pv-grid">${related.map(r => `<button class="pv-thumb" onclick="openProductDetail(${r.id})" aria-label="${r.name}"><img src="${r.image}" alt="${r.name}" loading="lazy" /></button>`).join('')}</div>
-          </div>
-          <div class="pv-actions">
-            <button class="pv-cta" onclick="orderViaWhatsApp(${p.id})"><i class="fab fa-whatsapp"></i>Order on WhatsApp</button>
-            <button class="pv-round" onclick="addToCart(${p.id})" title="Add to Cart" aria-label="Add to cart"><i class="fas fa-shopping-bag"></i></button>
-          </div>
+        <div class="pv-dock" id="pvDock">
+          <div class="who"><small>${p.name}</small><strong>₹${p.price}</strong></div>
+          ${actions}
         </div>
       `;
+      const sc = document.getElementById('pvScroll');
+      const top = document.getElementById('pvTop');
+      const dock = document.getElementById('pvDock');
+      const hero = sc.querySelector('.pv-hero');
+      sc.addEventListener('scroll', () => {
+        const st = sc.scrollTop, h = hero.offsetHeight;
+        top.classList.toggle('scrolled', st > h * 0.35);
+        dock.classList.toggle('show', st > h * 0.6);
+      }, { passive: true });
       if (!pvOpen) history.pushState({ pv: 1 }, '');
       pvOpen = true;
       view.classList.add('active');
@@ -1032,7 +1102,25 @@
       if (wasOpen && fromPop !== true && history.state && history.state.pv) history.back();
     }
 
-    function pvToggle() { document.getElementById('pvScreen').classList.toggle('collapsed'); }
+    // tap a small photo -> it becomes the main photo
+    function pvSetPhoto(i) {
+      const photo = document.querySelector('#pvScreen .pv-photo');
+      if (!photo || !pvImgs[i]) return;
+      document.querySelectorAll('#pvScreen .pv-th').forEach((b, n) => b.classList.toggle('active', n === i));
+      photo.style.opacity = 0;
+      setTimeout(() => {
+        photo.onload = () => { photo.style.opacity = 1; };
+        photo.src = pvImgs[i];
+        setTimeout(() => { photo.style.opacity = 1; }, 600);
+      }, 200);
+      const sc = document.getElementById('pvScroll');
+      if (sc && sc.scrollTop > 0) sc.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function pvDown() {
+      const sc = document.getElementById('pvScroll');
+      if (sc) sc.scrollTo({ top: sc.clientHeight - 70, behavior: 'smooth' });
+    }
 
     function pvWish(id) {
       toggleWishlist(id);
@@ -1042,20 +1130,6 @@
 
     // phone back button / browser back closes the product page
     window.addEventListener('popstate', () => { if (pvOpen) closeProductDetail(true); });
-
-    // swipe the sheet handle up/down to expand/collapse
-    (function () {
-      const scr = document.getElementById('pvScreen');
-      let y0 = null;
-      scr.addEventListener('touchstart', e => { if (e.target.closest('.pv-grip')) y0 = e.touches[0].clientY; }, { passive: true });
-      scr.addEventListener('touchend', e => {
-        if (y0 === null) return;
-        const dy = e.changedTouches[0].clientY - y0;
-        y0 = null;
-        if (dy > 40) scr.classList.add('collapsed');
-        else if (dy < -40) scr.classList.remove('collapsed');
-      });
-    })();
 
     // ----- Render Functions -----
     function cardHTML(p, inWishlist = false) {
