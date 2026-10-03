@@ -19,6 +19,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root { --gold: #b89a7b; --gold-l: #e3cfb4; --ink: #14110f; --ivory: #faf6f1; --ease: cubic-bezier(.22,1,.36,1); }
     html { scroll-behavior: smooth; }
+    html, body, * { scrollbar-width: none; -ms-overflow-style: none; }
+    html::-webkit-scrollbar, body::-webkit-scrollbar, *::-webkit-scrollbar { display: none; width: 0; height: 0; }
     section[id] { scroll-margin-top: 84px; }
     body { font-family: 'Inter', sans-serif; background: #f8f4f0; color: #1e1b1a; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     ::selection { background: var(--gold); color: #fff; }
@@ -63,7 +65,6 @@
     .icon-btn:hover { background: rgba(184,154,123,.2); border-color: rgba(184,154,123,.55); color: var(--gold-l); transform: translateY(-1px); }
     .menu-toggle { display: none; }
     .badge { position: absolute; top: -6px; right: -6px; background: linear-gradient(135deg, #e3cfb4, #b89a7b); color: var(--ink); font-size: .55rem; border-radius: 50%; padding: .1rem .4rem; font-weight: 700; min-width: 20px; text-align: center; border: 2px solid var(--ink); }
-    .scroll-progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; transform: scaleX(0); transform-origin: left; background: linear-gradient(90deg, var(--gold), var(--gold-l)); pointer-events: none; }
 
     /* mobile drawer (sibling of header) */
     .mobile-nav { position: fixed; top: 0; right: 0; bottom: 0; width: min(86vw, 360px); height: 100%; padding: 1.4rem 1.5rem 2rem; border-radius: 24px 0 0 24px; background: rgba(16,13,11,.96); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-left: 1px solid rgba(184,154,123,.25); box-shadow: -30px 0 80px rgba(0,0,0,.4); visibility: hidden; transform: translateX(100%); pointer-events: none; transition: transform .5s var(--ease), visibility 0s linear .5s; z-index: 200; overflow-y: auto; }
@@ -473,7 +474,6 @@
         <button class="icon-btn menu-toggle" id="hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
       </div>
     </div>
-    <div class="scroll-progress" id="scrollProgress"></div>
   </header>
 
   <div class="mobile-nav" id="mobileNav">
@@ -1184,7 +1184,6 @@
       'use strict';
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var header = document.getElementById('siteHeader');
-      var bar = document.getElementById('scrollProgress');
       var hero = document.getElementById('homeHero');
       var ticking = false;
 
@@ -1192,7 +1191,6 @@
         var y = window.scrollY;
         var max = document.documentElement.scrollHeight - window.innerHeight;
         if (header) header.classList.toggle('scrolled', y > 24);
-        if (bar) bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
         if (hero) hero.style.setProperty('--hp', Math.min(1, y / (window.innerHeight * 0.75)).toFixed(3));
         ticking = false;
       }
