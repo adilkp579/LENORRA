@@ -418,21 +418,19 @@
     .pv.active .pv-screen { transform: none; }
     .pv-scroll { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
 
-    .pv-hero { position: relative; height: calc(100% - 70px); overflow: hidden; }
+    .pv-hero { position: relative; height: 100%; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 .7rem .7rem; }
     .pv-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .pv-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 46%, rgba(8,6,5,.75) 100%); pointer-events: none; }
+    .pv-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.42) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 40%, rgba(8,6,5,.82) 100%); pointer-events: none; }
 
     .pv-top { position: absolute; top: 0; left: 0; right: 0; z-index: 6; display: flex; align-items: center; justify-content: space-between; gap: .8rem; padding: .9rem 1.1rem; border-bottom: 1px solid transparent; transition: background .35s ease, border-color .35s ease; }
     .pv-top.scrolled { background: rgba(16,13,11,.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-color: rgba(255,255,255,.08); }
-    .pv-ttl { flex: 1; text-align: center; font: 600 .95rem 'Inter', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease; }
-    .pv-top.scrolled .pv-ttl { opacity: 1; transform: none; }
+    .pv-ttl { flex: 1; text-align: left; font: 600 .95rem 'Inter', sans-serif; text-shadow: 0 1px 8px rgba(0,0,0,.5); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .pv-ic { width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: rgba(20,17,15,.38); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.25); color: #fff; font-size: .95rem; cursor: pointer; transition: .2s; flex-shrink: 0; }
     .pv-ic:hover { background: var(--gold); border-color: var(--gold); }
 
-    .pv-sheet { position: absolute; left: .7rem; right: .7rem; bottom: calc(28px + .6rem); z-index: 3; padding: .1rem 1.1rem 1.1rem; border-radius: 28px; background: rgba(18,15,13,.46); backdrop-filter: blur(28px) saturate(1.3); -webkit-backdrop-filter: blur(28px) saturate(1.3); border: 1px solid rgba(255,255,255,.28); }
-    .pv-grip { display: flex; flex-direction: column; align-items: center; gap: .3rem; width: 100%; padding: .6rem 0 .7rem; background: none; border: 0; cursor: pointer; color: rgba(255,255,255,.72); font: 500 .68rem 'Inter', sans-serif; }
-    .pv-grip i { font-size: .7rem; animation: pvBob 1.8s ease-in-out infinite; }
-    @keyframes pvBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    .pv-sheet { position: relative; z-index: 3; padding: .1rem 1.1rem 1.1rem; border-radius: 28px; background: rgba(18,15,13,.46); backdrop-filter: blur(28px) saturate(1.3); -webkit-backdrop-filter: blur(28px) saturate(1.3); border: 1px solid rgba(255,255,255,.28); }
+    .pv-grip { display: block; width: 100%; padding: .65rem 0 .8rem; background: none; border: 0; cursor: pointer; }
+    .pv-grip::before { content: ''; display: block; width: 44px; height: 5px; margin: 0 auto; border-radius: 9px; background: rgba(255,255,255,.55); }
     .pv-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; }
     .pv-head h2 { font: 700 1.45rem/1.2 'Inter', sans-serif; letter-spacing: -.01em; }
     .pv-head p { margin-top: .15rem; font-size: .76rem; color: rgba(255,255,255,.72); }
@@ -448,7 +446,15 @@
     .pv-round { width: 52px; height: 52px; flex: none; border: 0; border-radius: 18px; background: #fff; color: var(--ink); font-size: 1.05rem; cursor: pointer; transition: .2s; }
     .pv-round:hover { background: var(--gold-l); }
 
-    .pv-flow { position: relative; z-index: 4; margin-top: -28px; padding: 1rem .7rem 6rem; background: #14110f; border-radius: 28px 28px 0 0; }
+    .pv-flow { position: relative; z-index: 4; padding: 1.4rem .7rem 6rem; background: #14110f; border-top: 1px solid rgba(255,255,255,.08); }
+    .pv-plain { display: inline-flex; align-items: center; justify-content: center; padding: .45rem; background: none; border: 0; color: #fff; font-size: 1.1rem; cursor: pointer; text-shadow: 0 1px 8px rgba(0,0,0,.5); transition: color .2s; }
+    .pv-plain:hover { color: var(--gold-l); }
+    .pv-about { position: relative; z-index: 3; padding: 0 .8rem 1rem; text-shadow: 0 1px 12px rgba(0,0,0,.6); }
+    .pv-about h4 { font-size: .85rem; font-weight: 700; margin-bottom: .35rem; }
+    .pv-about .pv-loc { font-size: .82rem; font-weight: 600; margin-bottom: .45rem; }
+    .pv-about .pv-loc i { margin-right: .4rem; }
+    .pv-about .pv-desc { font-size: .82rem; line-height: 1.55; color: rgba(255,255,255,.9); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .pv-more h3 { padding: 0 .5rem; font: 600 1.2rem 'Playfair Display', serif; margin-bottom: .8rem; }
     .pv-thumbs { display: flex; gap: .6rem; overflow-x: auto; padding: .15rem .5rem; }
     .pv-th { position: relative; flex: 0 0 64px; width: 64px; height: 64px; padding: 0; border: 2px solid transparent; border-radius: 16px; overflow: hidden; background: #2a2522; cursor: pointer; opacity: .65; transition: opacity .25s ease, border-color .25s ease, transform .3s var(--ease); }
     .pv-th img { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -485,6 +491,22 @@
       .pv-screen { width: 100%; height: 100%; height: 100dvh; border-radius: 0; }
       .pv-head h2 { font-size: 1.25rem; }
       .pv-stat strong { font-size: 1.1rem; }
+    }
+
+    /* mobile home rows (Shop by Category, Best Sellers, New Arrivals): 1 full card + half of the next */
+    @media (max-width: 768px) {
+      .category-products-wrapper { scroll-padding-left: .5rem; }
+      .best-sellers-scroll .product-grid, .new-arrivals-scroll .product-grid { scroll-padding-left: .3rem; }
+      :is(.category-products-row, .best-sellers-scroll .product-grid, .new-arrivals-scroll .product-grid) .product-card { flex: 0 0 min(64vw, 300px); width: min(64vw, 300px); min-width: 0; aspect-ratio: 3 / 5; border-radius: 28px; }
+      :is(.category-products-row, .best-sellers-scroll .product-grid, .new-arrivals-scroll .product-grid) .product-info { padding: 1rem; gap: .5rem; }
+      :is(.category-products-row, .best-sellers-scroll .product-grid, .new-arrivals-scroll .product-grid) .product-name { font-size: 1.1rem; }
+      :is(.category-products-row, .best-sellers-scroll .product-grid, .new-arrivals-scroll .product-grid) .pc-badge { font-size: .85rem; }
+      :is(.category-products-row, .best-sellers-scroll .product-grid, .new-arrivals-scroll .product-grid) .pc-desc { display: -webkit-box; font-size: .8rem; }
+      :is(.category-products-row, .best-sellers-scroll .product-grid, .new-arrivals-scroll .product-grid) .pc-stat strong { font-size: .95rem; }
+      :is(.category-products-row, .best-sellers-scroll .product-grid, .new-arrivals-scroll .product-grid) .pc-stat span { display: block; font-size: .72rem; }
+      :is(.category-products-row, .best-sellers-scroll .product-grid, .new-arrivals-scroll .product-grid) .btn-whatsapp { min-height: 44px; font-size: .88rem; }
+      :is(.category-products-row, .best-sellers-scroll .product-grid, .new-arrivals-scroll .product-grid) .btn-whatsapp i { display: inline; }
+      :is(.category-products-row, .best-sellers-scroll .product-grid, .new-arrivals-scroll .product-grid) .btn-cart-icon { width: 58px; height: 44px; font-size: .95rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1029,15 +1051,20 @@
       view.querySelector('.pv-backdrop').style.backgroundImage = `url('${p.image}')`;
       screen.innerHTML = `
         <div class="pv-top" id="pvTop">
-          <button class="pv-ic" onclick="closeProductDetail()" aria-label="Back"><i class="fas fa-chevron-left"></i></button>
-          <span class="pv-ttl">${p.name}</span>
-          <button class="pv-ic" id="pvHeart" onclick="pvWish(${p.id})" aria-label="Wishlist"><i class="${inW ? 'fas' : 'far'} fa-heart"></i></button>
+          <button class="pv-plain" onclick="closeProductDetail()" aria-label="Back"><i class="fas fa-chevron-left"></i></button>
+          <span class="pv-ttl" id="pvTtl">${p.category}</span>
+          <button class="pv-plain" id="pvHeart" onclick="pvWish(${p.id})" aria-label="Wishlist"><i class="${inW ? 'fas' : 'far'} fa-heart"></i></button>
         </div>
         <div class="pv-scroll" id="pvScroll">
           <div class="pv-hero">
             <img class="pv-photo" src="${imgs[0]}" alt="${p.name}" />
+            <div class="pv-about">
+              <h4>About this piece</h4>
+              <p class="pv-loc"><i class="fas fa-gem"></i>${p.material} · ${p.finish}</p>
+              <p class="pv-desc">${p.description}</p>
+            </div>
             <div class="pv-sheet">
-              <button class="pv-grip" onclick="pvDown()" aria-label="Scroll for more"><i class="fas fa-chevron-up"></i><span>Swipe up for more photos &amp; details</span></button>
+              <button class="pv-grip" onclick="pvDown()" aria-label="Scroll for more photos and details"></button>
               <div class="pv-head">
                 <div>
                   <h2>${p.name}</h2>
@@ -1052,7 +1079,10 @@
             </div>
           </div>
           <div class="pv-flow">
-            <div class="pv-thumbs" role="tablist" aria-label="Product photos">${imgs.map((u, i) => `<button class="pv-th${i === 0 ? ' active' : ''}" onclick="pvSetPhoto(${i})" aria-label="Photo ${i + 1}"><img src="${u.replace('w=900&h=1200', 'w=160&h=160')}" alt="${p.name} photo ${i + 1}" /></button>`).join('')}</div>
+            <section class="pv-more">
+              <h3>More photos</h3>
+              <div class="pv-thumbs" role="tablist" aria-label="Product photos">${imgs.map((u, i) => `<button class="pv-th${i === 0 ? ' active' : ''}" onclick="pvSetPhoto(${i})" aria-label="Photo ${i + 1}"><img src="${u.replace('w=900&h=1200', 'w=160&h=160')}" alt="${p.name} photo ${i + 1}" /></button>`).join('')}</div>
+            </section>
             <section class="pv-details">
               <h3>About this piece</h3>
               <p>${p.description}</p>
@@ -1081,7 +1111,11 @@
       const hero = sc.querySelector('.pv-hero');
       sc.addEventListener('scroll', () => {
         const st = sc.scrollTop, h = hero.offsetHeight;
-        top.classList.toggle('scrolled', st > h * 0.35);
+        const sc2 = st > h * 0.35;
+        if (sc2 !== top.classList.contains('scrolled')) {
+          top.classList.toggle('scrolled', sc2);
+          document.getElementById('pvTtl').textContent = sc2 ? p.name : p.category;
+        }
         dock.classList.toggle('show', st > h * 0.6);
       }, { passive: true });
       if (!pvOpen) history.pushState({ pv: 1 }, '');
@@ -1119,7 +1153,7 @@
 
     function pvDown() {
       const sc = document.getElementById('pvScroll');
-      if (sc) sc.scrollTo({ top: sc.clientHeight - 70, behavior: 'smooth' });
+      if (sc) sc.scrollTo({ top: sc.clientHeight, behavior: 'smooth' });
     }
 
     function pvWish(id) {
@@ -1136,13 +1170,8 @@
       const d = p.originalPrice ? Math.round((1 - p.price/p.originalPrice)*100) : 0;
       return `
         <div class="product-card${inWishlist ? ' wishlist-card' : ''}" data-id="${p.id}" data-category="${p.category}" tabindex="0" role="link" aria-label="View ${p.name}">
-          ${inWishlist ? `<button class="remove-wishlist-btn" onclick="removeFromWishlist(${p.id})" aria-label="Remove from wishlist"><i class="fas fa-times"></i></button>` : ''}
           <div class="product-image">
             <img src="${p.image}" alt="${p.name}" loading="lazy" />
-            <div class="product-actions">
-              ${inWishlist ? '' : `<button onclick="toggleWishlist(${p.id})" aria-label="Add to wishlist"><i class="far fa-heart"></i></button>`}
-              <button onclick="openProductDetail(${p.id})" aria-label="Quick view"><i class="fas fa-eye"></i></button>
-            </div>
           </div>
           <div class="product-info">
             <div class="product-name">${p.name} <i class="fas fa-circle-check pc-badge" title="Anti-tarnish"></i></div>
